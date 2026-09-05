@@ -1,0 +1,224 @@
+{
+  "generated_at": "2026-09-05T19:13:38+00:00",
+  "environment": {
+    "mode": "replay (fixtures)",
+    "driver": "none",
+    "backend": "fixture",
+    "device": "none (synthesized)",
+    "fixture source": "SYNTHESIZED speech, not a device capture through air. Placeholder fixtures so the replay path runs from a clean clone with no phone and no API key. Replace with real TalkBack captures before presenting any accuracy claim."
+  },
+  "cases": [
+    {
+      "id": "battery-clean",
+      "title": "Left battery announced correctly",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
+      "visual_value": 85,
+      "transcript": "Left battery, 85 percent",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        },
+        "dumpsys": {
+          "raw": 85,
+          "value": 85
+        }
+      },
+      "audio_path": "fixtures/battery-clean.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "none"
+    },
+    {
+      "id": "battery-defect",
+      "title": "Injected battery_value defect: screen 85%, speech 55%",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "FAIL",
+      "reason": "MISMATCH",
+      "detail": "displayed 85, announced 55",
+      "spoken_value": 55,
+      "visual_value": 85,
+      "transcript": "Left battery, 55 percent",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        }
+      },
+      "audio_path": "fixtures/battery-defect.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "battery_value"
+    },
+    {
+      "id": "volume-clean",
+      "title": "Negative volume announced with its sign",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": -3,
+      "visual_value": -3,
+      "transcript": "Right volume, level minus 3",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-3",
+          "value": -3
+        }
+      },
+      "audio_path": "fixtures/volume-clean.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "none"
+    },
+    {
+      "id": "volume-sign-defect",
+      "title": "Injected volume_sign defect: screen -3, speech level 3",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "FAIL",
+      "reason": "VOLUME_SIGN_LOST",
+      "detail": "displayed -3, announced 3: the sign was dropped",
+      "spoken_value": 3,
+      "visual_value": -3,
+      "transcript": "Right volume, level 3",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-3",
+          "value": -3
+        }
+      },
+      "audio_path": "fixtures/volume-sign-defect.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "volume_sign"
+    },
+    {
+      "id": "program-clean",
+      "title": "Program name and selected state",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": "Noisy Environment",
+      "visual_value": "Noisy Environment",
+      "transcript": "Program, Noisy Environment, selected",
+      "channels": {
+        "text_node": {
+          "raw": "Noisy Environment",
+          "value": "Noisy Environment"
+        },
+        "ocr": {
+          "raw": "Noisy Environment",
+          "value": "Noisy Environment"
+        }
+      },
+      "audio_path": "fixtures/program-clean.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "none"
+    },
+    {
+      "id": "ambiguous",
+      "title": "Two conflicting percentages in one window",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_AMBIGUOUS",
+      "detail": "candidates: [15, 50]",
+      "spoken_value": null,
+      "visual_value": 85,
+      "transcript": "Battery 15 percent. Battery 50 percent.",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        }
+      },
+      "audio_path": "fixtures/ambiguous.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "none"
+    },
+    {
+      "id": "silence",
+      "title": "Silent capture, value visible on screen",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "AUDIO_SILENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": 85,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        }
+      },
+      "audio_path": "fixtures/silence.wav",
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "none (replay)",
+      "injected_defect": "none"
+    }
+  ],
+  "control": {
+    "silent": true,
+    "peak_level": 0.0,
+    "duration_s": 3.0
+  }
+}

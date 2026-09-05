@@ -1,0 +1,93 @@
+{
+  "source": "SYNTHESIZED speech, not a device capture through air. Placeholder fixtures so the replay path runs from a clean clone with no phone and no API key. Replace with real TalkBack captures before presenting any accuracy claim.",
+  "device": "none (synthesized)",
+  "cases": [
+    {
+      "id": "battery-clean",
+      "title": "Left battery announced correctly",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "audio": "battery-clean.wav",
+      "text_node": "85%",
+      "ocr_text": "85%",
+      "dumpsys": 85,
+      "injected_defect": "none"
+    },
+    {
+      "id": "battery-defect",
+      "title": "Injected battery_value defect: screen 85%, speech 55%",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "audio": "battery-defect.wav",
+      "text_node": "85%",
+      "ocr_text": "85%",
+      "injected_defect": "battery_value"
+    },
+    {
+      "id": "volume-clean",
+      "title": "Negative volume announced with its sign",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "audio": "volume-clean.wav",
+      "text_node": "-3",
+      "ocr_text": "-3",
+      "injected_defect": "none"
+    },
+    {
+      "id": "volume-sign-defect",
+      "title": "Injected volume_sign defect: screen -3, speech level 3",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "audio": "volume-sign-defect.wav",
+      "text_node": "-3",
+      "ocr_text": "-3",
+      "injected_defect": "volume_sign"
+    },
+    {
+      "id": "program-clean",
+      "title": "Program name and selected state",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "audio": "program-clean.wav",
+      "text_node": "Noisy Environment",
+      "ocr_text": "Noisy Environment",
+      "parse_kwargs": {
+        "vocabulary": ["Universal", "Noisy Environment", "Restaurant", "Music"]
+      },
+      "injected_defect": "none"
+    },
+    {
+      "id": "ambiguous",
+      "title": "Two conflicting percentages in one window",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "audio": "ambiguous.wav",
+      "text_node": "85%",
+      "ocr_text": "85%",
+      "injected_defect": "none"
+    },
+    {
+      "id": "silence",
+      "title": "Silent capture, value visible on screen",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "audio": "silence.wav",
+      "text_node": "85%",
+      "ocr_text": "85%",
+      "silent": true,
+      "injected_defect": "none"
+    }
+  ],
+  "control": {
+    "audio": "control.wav",
+    "silent": true,
+    "peak_level": 0.0
+  }
+}
