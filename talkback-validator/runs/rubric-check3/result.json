@@ -1,0 +1,200 @@
+{
+  "generated_at": "2026-09-06T19:50:56+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "program-none",
+      "title": "program announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 'Noisy Environment', 'ocr': 'Noisy\\nEnvironment'}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "ACM program noisy environment selected.",
+      "channels": {
+        "text_node": {
+          "raw": "Noisy Environment",
+          "value": "Noisy Environment"
+        },
+        "ocr": {
+          "raw": "Noisy\nEnvironment",
+          "value": "Noisy\nEnvironment"
+        }
+      },
+      "audio_path": "runs/rubric-check3/program.wav",
+      "screenshot": "runs/rubric-check3/program.png",
+      "crop": "runs/rubric-check3/program-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788724266.8144152
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788724268.099614
+        },
+        {
+          "event": "focus_action",
+          "at": 1788724268.914738
+        },
+        {
+          "event": "speech_start",
+          "at": 1788724269.249221
+        },
+        {
+          "event": "speech_end",
+          "at": 1788724273.146871
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_volume-none",
+      "title": "left_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 4,
+      "visual_value": 4,
+      "transcript": "main wall right CPU left volume level four",
+      "channels": {
+        "text_node": {
+          "raw": "4",
+          "value": 4
+        },
+        "ocr": {
+          "raw": "4",
+          "value": 4
+        }
+      },
+      "audio_path": "runs/rubric-check3/left_volume.wav",
+      "screenshot": "runs/rubric-check3/left_volume.png",
+      "crop": "runs/rubric-check3/left_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788724294.088842
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788724295.3614788
+        },
+        {
+          "event": "focus_action",
+          "at": 1788724296.3096588
+        },
+        {
+          "event": "speech_start",
+          "at": 1788724296.310156
+        },
+        {
+          "event": "speech_end",
+          "at": 1788724299.407497
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_volume-none",
+      "title": "right_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_AMBIGUOUS",
+      "detail": "candidates: [-3, 1]",
+      "spoken_value": null,
+      "visual_value": -3,
+      "transcript": "Track one. Right volume level minus 3.",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-3",
+          "value": -3
+        }
+      },
+      "audio_path": "runs/rubric-check3/right_volume.wav",
+      "screenshot": "runs/rubric-check3/right_volume.png",
+      "crop": "runs/rubric-check3/right_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788724318.769175
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788724320.0374799
+        },
+        {
+          "event": "focus_action",
+          "at": 1788724320.839499
+        },
+        {
+          "event": "speech_start",
+          "at": 1788724320.840109
+        },
+        {
+          "event": "speech_end",
+          "at": 1788724324.0373209
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_connection-none",
+      "title": "left_connection is not present in the accessibility tree",
+      "scenario": "aidsim",
+      "field": "left_connection",
+      "field_type": "enum_state",
+      "status": "INCONCLUSIVE",
+      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
+      "detail": "node status_left_connection not on screen",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

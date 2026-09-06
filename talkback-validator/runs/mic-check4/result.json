@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-09-06T17:40:38+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-flash-latest",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 85, 'ocr': 35}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "on aptX Left battery 85%",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "35%",
+          "value": 35
+        }
+      },
+      "audio_path": "runs/mic-check4/left_battery.wav",
+      "screenshot": "runs/mic-check4/left_battery.png",
+      "crop": "runs/mic-check4/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788716444.62726
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788716445.8558779
+        },
+        {
+          "event": "focus_action",
+          "at": 1788716445.946729
+        },
+        {
+          "event": "speech_start",
+          "at": 1788716445.947327
+        },
+        {
+          "event": "speech_end",
+          "at": 1788716450.153673
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 42, 'ocr': 40}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "Back on, eight sim, left back",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": "40%",
+          "value": 40
+        }
+      },
+      "audio_path": "runs/mic-check4/right_battery.wav",
+      "screenshot": "runs/mic-check4/right_battery.png",
+      "crop": "runs/mic-check4/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788716478.588806
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788716479.681411
+        },
+        {
+          "event": "focus_action",
+          "at": 1788716479.794542
+        },
+        {
+          "event": "speech_start",
+          "at": 1788716479.794873
+        },
+        {
+          "event": "speech_end",
+          "at": 1788716483.3263428
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

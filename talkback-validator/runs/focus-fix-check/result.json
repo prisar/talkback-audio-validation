@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-09-06T19:06:25+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-flash-latest",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/focus-fix-check/left_battery.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/focus-fix-check/right_battery.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "program-none",
+      "title": "program: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/focus-fix-check/program.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "left_volume-none",
+      "title": "left_volume: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "left_volume",
+      "field_type": "signed_level",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/focus-fix-check/left_volume.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_volume-none",
+      "title": "right_volume: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/focus-fix-check/right_volume.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "left_connection-none",
+      "title": "left_connection is not present in the accessibility tree",
+      "scenario": "aidsim",
+      "field": "left_connection",
+      "field_type": "enum_state",
+      "status": "INCONCLUSIVE",
+      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
+      "detail": "node status_left_connection not on screen",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": {
+    "silent": true,
+    "peak_level": 0.01371012069284916,
+    "duration_s": 13.0
+  }
+}

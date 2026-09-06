@@ -16,6 +16,12 @@ PROMPT = (
     "Return an empty transcript when no intelligible speech is audible."
 )
 
+SCREEN_PROMPT = (
+    "Read only the value shown in this screenshot region. "
+    "Return it exactly as rendered, with no other words. "
+    "Return an empty response if no value is legible."
+)
+
 
 class ModelUnavailable(RuntimeError):
     pass
@@ -31,7 +37,7 @@ class GeminiBackend:
 
     name = "gemini"
 
-    def __init__(self, model: str = "gemini-2.5-flash", api_key: str | None = None):
+    def __init__(self, model: str = "gemini-flash-latest", api_key: str | None = None):
         self.model = model
         self._api_key = api_key or os.environ.get("GEMINI_API_KEY")
 
@@ -45,6 +51,18 @@ class GeminiBackend:
         return True
 
     def transcribe(self, audio_path: str | Path) -> TranscriptResult:
+        return self._ask(PROMPT, audio_path, "audio/wav")
+
+    def read_screen_value(self, image_path: str | Path) -> TranscriptResult:
+        """Reads a screenshot region with the model instead of tesseract OCR.
+
+        This is a second, independent query against the same model used for
+        transcription -- a separate call, its own prompt, no mention of the
+        spoken value -- so it still corroborates rather than assumes it.
+        """
+        return self._ask(SCREEN_PROMPT, image_path, "image/png")
+
+    def _ask(self, prompt: str, media_path: str | Path, mime_type: str) -> TranscriptResult:
         started = time.time()
         if not self._api_key:
             return TranscriptResult(
@@ -64,14 +82,14 @@ class GeminiBackend:
                 error=f"google-genai not installed: {exc}",
             )
 
-        audio_bytes = Path(audio_path).read_bytes()
+        media_bytes = Path(media_path).read_bytes()
         try:
             client = genai.Client(api_key=self._api_key)
             response = client.models.generate_content(
                 model=self.model,
                 contents=[
-                    PROMPT,
-                    types.Part.from_bytes(data=audio_bytes, mime_type="audio/wav"),
+                    prompt,
+                    types.Part.from_bytes(data=media_bytes, mime_type=mime_type),
                 ],
                 config=types.GenerateContentConfig(temperature=0.0),
             )

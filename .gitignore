@@ -25,3 +25,4 @@ local.properties
 
 # OS
 .DS_Store
+.env

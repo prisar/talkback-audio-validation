@@ -3,7 +3,7 @@ package com.talkbacklab.aidsim
 import android.content.Intent
 
 enum class Defect {
-    NONE, BATTERY_VALUE, SWAP_SIDES, VOLUME_SIGN, MISSING_LABEL;
+    NONE, BATTERY_VALUE, SWAP_SIDES, VOLUME_SIGN, MISSING_LABEL, A11Y_SUITE;
 
     companion object {
         fun from(raw: String?): Defect = when (raw?.lowercase()) {
@@ -11,6 +11,7 @@ enum class Defect {
             "swap_sides" -> SWAP_SIDES
             "volume_sign" -> VOLUME_SIGN
             "missing_label" -> MISSING_LABEL
+            "a11y_suite" -> A11Y_SUITE
             else -> NONE
         }
     }
@@ -56,7 +57,7 @@ data class AidState(
         }
 
         private fun descriptionFor(program: String): String = when (program) {
-            "Noisy Environment" -> "Reduces background noise in busy places."
+            "Noisy" -> "Reduces background noise in busy places."
             "Restaurant" -> "Focuses on speech in front of you."
             "Music" -> "Widens the range for listening to music."
             else -> "Personal program adapting to your environment."

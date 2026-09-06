@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-09-06T15:39:20+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"emulator-5554\", \"model\": \"sdk_gphone64_x86_64\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-US\"}",
+    "backend": "fixture",
+    "model": "recorded",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "right_volume-none",
+      "title": "right_volume: app did not relaunch to a stable state",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "ERROR",
+      "reason": "NAVIGATION_FAILED",
+      "detail": "app did not reach the foreground after relaunch",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

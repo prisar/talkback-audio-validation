@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-09-06T17:48:27+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-flash-latest",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "right_battery-none",
+      "title": "right_battery: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/mic-check7/right_battery.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-09-06T15:37:37+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"emulator-5554\", \"model\": \"sdk_gphone64_x86_64\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-US\"}",
+    "backend": "fixture",
+    "model": "recorded",
+    "injected defect": "volume_sign"
+  },
+  "cases": [
+    {
+      "id": "right_volume-volume_sign",
+      "title": "right_volume is not present in the accessibility tree",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "INCONCLUSIVE",
+      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
+      "detail": "node volume_right not on screen",
+      "driver": "adb",
+      "injected_defect": "volume_sign"
+    }
+  ],
+  "control": null
+}

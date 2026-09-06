@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-09-06T17:42:45+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-flash-latest",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
+      "visual_value": 85,
+      "transcript": "ack on, 8 SIM, left battery 85%.",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "",
+          "value": null
+        }
+      },
+      "audio_path": "runs/mic-check5/left_battery.wav",
+      "screenshot": "runs/mic-check5/left_battery.png",
+      "crop": "runs/mic-check5/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788716573.70859
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788716574.82477
+        },
+        {
+          "event": "focus_action",
+          "at": 1788716574.924682
+        },
+        {
+          "event": "speech_start",
+          "at": 1788716574.925811
+        },
+        {
+          "event": "speech_end",
+          "at": 1788716579.422233
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery: transcription backend failed",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+      "audio_path": "runs/mic-check5/right_battery.wav",
+      "backend": "gemini",
+      "model": "gemini-flash-latest",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

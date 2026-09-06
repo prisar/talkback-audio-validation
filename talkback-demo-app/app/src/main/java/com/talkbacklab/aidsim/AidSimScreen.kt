@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -55,6 +56,7 @@ fun AidSimScreen(state: AidState, onState: (AidState) -> Unit, modifier: Modifie
         modifier = modifier
             .fillMaxSize()
             .background(AidColors.Background)
+            .statusBarsPadding()
             .verticalScroll(rememberScrollState())
     ) {
         TopBar(state) { showStatus = !showStatus }
@@ -84,8 +86,14 @@ private fun TopBar(state: AidState, onOpenStatus: () -> Unit) {
             modifier = Modifier.semantics { testTag = "brand" }
         )
         Spacer(Modifier.weight(1f))
+        // INTENTIONAL ACCESSIBILITY DEFECT 1:
+        // The left battery stays fully visible and tappable, but skipA11y removes its
+        // whole subtree from the semantics tree. It never takes accessibility focus and
+        // is never announced, so meaningful visual information has no accessible
+        // equivalent. The right chip is deliberately left reachable for contrast.
         BatteryChip("chip_battery_left", "L", state.leftBattery, AidColors.Left,
-            Labels.batteryChip(state, Side.LEFT), onOpenStatus)
+            Labels.batteryChip(state, Side.LEFT), onOpenStatus,
+            skipA11y = A11yDefects.active(state))
         Spacer(Modifier.width(12.dp))
         BatteryChip("chip_battery_right", "R", state.rightBattery, AidColors.Right,
             Labels.batteryChip(state, Side.RIGHT), onOpenStatus)
@@ -99,11 +107,13 @@ private fun BatteryChip(
     value: Int,
     tint: Color,
     label: String?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    skipA11y: Boolean = false
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
+            .then(if (skipA11y) Modifier.decorative() else Modifier)
             .clip(RoundedCornerShape(10.dp))
             .background(AidColors.Surface)
             .clickable { onClick() }
@@ -135,7 +145,7 @@ private fun Banner() {
     }
 }
 
-private val PROGRAMS = listOf("Universal", "Noisy Environment", "Restaurant", "Music")
+private val PROGRAMS = listOf("Universal", "Noisy", "Restaurant", "Music")
 
 @Composable
 private fun ProgramCard(state: AidState, onState: (AidState) -> Unit) {
@@ -153,7 +163,7 @@ private fun ProgramCard(state: AidState, onState: (AidState) -> Unit) {
                 color = AidColors.TextPrimary,
                 fontSize = 14.sp,
                 modifier = Modifier
-                    .spoken("programs_button", "Programs, change program", "Programs")
+                    .spoken("programs_button", Labels.programsButton(state), "Programs")
                     .clip(RoundedCornerShape(14.dp))
                     .background(AidColors.SurfaceHigh)
                     .clickable {
@@ -181,7 +191,7 @@ private fun ProgramCard(state: AidState, onState: (AidState) -> Unit) {
 }
 
 private fun describe(program: String): String = when (program) {
-    "Noisy Environment" -> "Reduces background noise in busy places."
+    "Noisy" -> "Reduces background noise in busy places."
     "Restaurant" -> "Focuses on speech in front of you."
     "Music" -> "Widens the range for listening to music."
     else -> "Personal program adapting to your environment."
@@ -228,7 +238,7 @@ private fun MasterVolumeRow(state: AidState, onOpenVolume: () -> Unit) {
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .spoken("open_volume_panel", "Adjust left and right volume separately", "L|R")
+                .spoken("open_volume_panel", Labels.volumePanelButton(state), "L|R")
                 .clip(RoundedCornerShape(10.dp))
                 .background(AidColors.SurfaceHigh)
                 .clickable { onOpenVolume() }
@@ -385,13 +395,13 @@ private fun StatusPanel(state: AidState) {
             StatusCard(
                 "status_left", "Left", state.leftConnected, state.leftBattery, AidColors.Left,
                 Labels.connection(state, Side.LEFT), Labels.battery(state, Side.LEFT),
-                Modifier.weight(1f)
+                Modifier.weight(1f), exposeDecorative = A11yDefects.active(state)
             )
             Spacer(Modifier.width(16.dp))
             StatusCard(
                 "status_right", "Right", state.rightConnected, state.rightBattery, AidColors.Right,
                 Labels.connection(state, Side.RIGHT), Labels.battery(state, Side.RIGHT),
-                Modifier.weight(1f)
+                Modifier.weight(1f), exposeDecorative = A11yDefects.active(state)
             )
         }
     }
@@ -406,7 +416,8 @@ private fun StatusCard(
     tint: Color,
     connectionLabel: String?,
     batteryLabel: String?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    exposeDecorative: Boolean = false
 ) {
     Column(
         modifier = modifier
@@ -429,8 +440,22 @@ private fun StatusCard(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            // INTENTIONAL ACCESSIBILITY DEFECT 5 (first half):
+            // A purely decorative status dot is given a label describing its colour and
+            // shape, adding noise that carries no information.
             Box(
                 Modifier
+                    .then(
+                        if (exposeDecorative) {
+                            Modifier.spoken(
+                                "${tag}_indicator",
+                                A11yDefects.STATUS_INDICATOR_DECORATIVE,
+                                ""
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
                     .size(8.dp)
                     .clip(CircleShape)
                     .background(if (connected) AidColors.Connected else AidColors.TextSecondary)
@@ -448,12 +473,20 @@ private fun StatusCard(
             )
         }
         Spacer(Modifier.height(10.dp))
+        // INTENTIONAL ACCESSIBILITY DEFECT 5 (second half):
+        // The battery percentage - the meaningful value on this card - is removed from
+        // the semantics tree entirely while the decorative dot above is announced. The
+        // priority is exactly inverted.
         Text(
             "$battery%",
             color = AidColors.TextPrimary,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.spoken("${tag}_battery", batteryLabel, "$battery%")
+            modifier = if (exposeDecorative) {
+                Modifier.decorative()
+            } else {
+                Modifier.spoken("${tag}_battery", batteryLabel, "$battery%")
+            }
         )
     }
 }

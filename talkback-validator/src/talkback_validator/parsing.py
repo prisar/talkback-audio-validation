@@ -127,17 +127,36 @@ def parse_percentage(transcript: str) -> SpokenValue:
                        candidates=distinct)
 
 
+def _level_anchored(prefix: str) -> bool:
+    """True when a number is immediately preceded by "level", the word
+    TalkBack always uses right before this field's value. A transcript can
+    carry other numbers from background noise; only this one is the field's
+    own announcement, so it overrides everything else once present."""
+    trimmed = prefix.strip()
+    for word in NEGATIVE_WORDS:
+        if trimmed.endswith(word):
+            trimmed = trimmed[: -len(word)].strip()
+            break
+    return trimmed.endswith("level")
+
+
 def parse_signed_level(transcript: str, low: int = -6, high: int = 6) -> SpokenValue:
     text = normalize(transcript)
     if not text:
         return SpokenValue(ParseStatus.NO_VALUE, utterance=transcript)
 
     candidates: list[int] = []
+    anchored: list[int] = []
     for value, start, _end in _number_tokens(text):
         prefix = text[max(0, start - 14):start]
         negative = any(w in prefix for w in NEGATIVE_WORDS) or text[start:start + 1] == "-"
         signed = -abs(value) if negative else value
         candidates.append(signed)
+        if _level_anchored(prefix):
+            anchored.append(signed)
+
+    if anchored:
+        candidates = anchored
 
     if not candidates:
         return SpokenValue(ParseStatus.NO_VALUE, utterance=transcript)

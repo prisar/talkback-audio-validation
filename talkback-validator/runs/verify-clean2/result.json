@@ -1,0 +1,303 @@
+{
+  "generated_at": "2026-09-06T15:19:26+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"emulator-5554\", \"model\": \"sdk_gphone64_x86_64\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-US\"}",
+    "backend": "fixture",
+    "model": "recorded",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 85, 'ocr': 35}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "35%",
+          "value": 35
+        }
+      },
+      "audio_path": "runs/verify-clean2/left_battery.wav",
+      "screenshot": "runs/verify-clean2/left_battery.png",
+      "crop": "runs/verify-clean2/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788707982.161506
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788707983.491304
+        },
+        {
+          "event": "focus_action",
+          "at": 1788707983.815645
+        },
+        {
+          "event": "timeout",
+          "at": 1788707995.842755
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": 42,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": "42%",
+          "value": 42
+        }
+      },
+      "audio_path": "runs/verify-clean2/right_battery.wav",
+      "screenshot": "runs/verify-clean2/right_battery.png",
+      "crop": "runs/verify-clean2/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788708012.040808
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788708013.331583
+        },
+        {
+          "event": "focus_action",
+          "at": 1788708013.5924952
+        },
+        {
+          "event": "speech_start",
+          "at": 1788708014.884087
+        },
+        {
+          "event": "speech_end",
+          "at": 1788708016.63341
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "program-none",
+      "title": "program announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 'Noisy Environment', 'ocr': 'Ftvivonment'}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "Noisy Environment",
+          "value": "Noisy Environment"
+        },
+        "ocr": {
+          "raw": "Ftvivonment",
+          "value": "Ftvivonment"
+        }
+      },
+      "audio_path": "runs/verify-clean2/program.wav",
+      "screenshot": "runs/verify-clean2/program.png",
+      "crop": "runs/verify-clean2/program-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788708031.3219998
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788708032.59044
+        },
+        {
+          "event": "focus_action",
+          "at": 1788708032.8056982
+        },
+        {
+          "event": "timeout",
+          "at": 1788708044.841372
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "left_volume-none",
+      "title": "left_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_volume",
+      "field_type": "signed_level",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": 4,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "4",
+          "value": 4
+        },
+        "ocr": {
+          "raw": "A",
+          "value": null
+        }
+      },
+      "audio_path": "runs/verify-clean2/left_volume.wav",
+      "screenshot": "runs/verify-clean2/left_volume.png",
+      "crop": "runs/verify-clean2/left_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788708066.9870532
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788708068.254326
+        },
+        {
+          "event": "focus_action",
+          "at": 1788708068.4263391
+        },
+        {
+          "event": "speech_start",
+          "at": 1788708071.757025
+        },
+        {
+          "event": "speech_end",
+          "at": 1788708073.052097
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_volume-none",
+      "title": "right_volume is not present in the accessibility tree",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "INCONCLUSIVE",
+      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
+      "detail": "node volume_right not on screen",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "left_connection-none",
+      "title": "left_connection announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_connection",
+      "field_type": "enum_state",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 'connected', 'ocr': 'connect\u00e9a@'}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "Connected",
+          "value": "connected"
+        },
+        "ocr": {
+          "raw": "Connect\u00e9a@",
+          "value": "connect\u00e9a@"
+        }
+      },
+      "audio_path": "runs/verify-clean2/left_connection.wav",
+      "screenshot": "runs/verify-clean2/left_connection.png",
+      "crop": "runs/verify-clean2/left_connection-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788708121.590863
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788708122.8495822
+        },
+        {
+          "event": "focus_action",
+          "at": 1788708123.032972
+        },
+        {
+          "event": "speech_start",
+          "at": 1788708125.8524458
+        },
+        {
+          "event": "speech_end",
+          "at": 1788708127.6998348
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "fixture",
+      "model": "recorded",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-09-06T17:37:26+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-2.5-flash",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": 85,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "",
+          "value": null
+        }
+      },
+      "audio_path": "runs/mic-check3/left_battery.wav",
+      "screenshot": "runs/mic-check3/left_battery.png",
+      "crop": "runs/mic-check3/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788716253.072795
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788716254.2043772
+        },
+        {
+          "event": "focus_action",
+          "at": 1788716254.2864692
+        },
+        {
+          "event": "speech_start",
+          "at": 1788716254.2871108
+        },
+        {
+          "event": "speech_end",
+          "at": 1788716256.163766
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "INCONCLUSIVE",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 42, 'ocr': 40}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": "40%",
+          "value": 40
+        }
+      },
+      "audio_path": "runs/mic-check3/right_battery.wav",
+      "screenshot": "runs/mic-check3/right_battery.png",
+      "crop": "runs/mic-check3/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788716267.368012
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788716268.61937
+        },
+        {
+          "event": "focus_action",
+          "at": 1788716268.707893
+        },
+        {
+          "event": "speech_start",
+          "at": 1788716268.708147
+        },
+        {
+          "event": "speech_end",
+          "at": 1788716273.0620759
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-2.5-flash",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none"
+    }
+  ],
+  "control": null
+}

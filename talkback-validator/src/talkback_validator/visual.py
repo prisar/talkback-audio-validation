@@ -34,13 +34,10 @@ def parse_displayed(text: str, field_type: FieldType):
     return raw
 
 
-def crop_and_ocr(screenshot: str | Path, bounds, out_path: str | Path | None = None) -> str:
-    """Crop the value region and OCR it. Raises OcrUnavailable if tesseract is absent."""
-    try:
-        import pytesseract
-        from PIL import Image
-    except ImportError as exc:
-        raise OcrUnavailable(str(exc)) from exc
+def crop_region(screenshot: str | Path, bounds, out_path: str | Path) -> Path:
+    """Crop the value region and save it. Shared by the OCR and the
+    screenshot-to-model reading paths so neither duplicates the cropping."""
+    from PIL import Image
 
     image = Image.open(screenshot)
     x1, y1, x2, y2 = bounds
@@ -52,11 +49,24 @@ def crop_and_ocr(screenshot: str | Path, bounds, out_path: str | Path | None = N
         min(image.height, y2 + pad),
     )
     crop = image.crop(box)
-    if out_path:
-        crop.save(out_path)
-    scaled = crop.resize((crop.width * 3, crop.height * 3))
+    crop = crop.resize((crop.width * 3, crop.height * 3))
+    crop.save(out_path)
+    return Path(out_path)
+
+
+def crop_and_ocr(screenshot: str | Path, bounds, out_path: str | Path | None = None) -> str:
+    """Crop the value region and OCR it. Raises OcrUnavailable if tesseract is absent."""
     try:
-        return pytesseract.image_to_string(scaled, config="--psm 7").strip()
+        import pytesseract
+    except ImportError as exc:
+        raise OcrUnavailable(str(exc)) from exc
+
+    crop_path = Path(out_path) if out_path else Path(screenshot).with_suffix(".crop.png")
+    crop = crop_region(screenshot, bounds, crop_path)
+    try:
+        from PIL import Image
+
+        return pytesseract.image_to_string(Image.open(crop), config="--psm 7").strip()
     except Exception as exc:
         raise OcrUnavailable(str(exc)) from exc
 

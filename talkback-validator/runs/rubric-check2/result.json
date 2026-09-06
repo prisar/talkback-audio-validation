@@ -1,0 +1,134 @@
+{
+  "generated_at": "2026-09-06T19:48:04+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
+      "visual_value": 85,
+      "transcript": "82 85%",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        }
+      },
+      "audio_path": "runs/rubric-check2/left_battery.wav",
+      "screenshot": "runs/rubric-check2/left_battery.png",
+      "crop": "runs/rubric-check2/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788724095.42549
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788724096.701845
+        },
+        {
+          "event": "focus_action",
+          "at": 1788724098.044354
+        },
+        {
+          "event": "speech_start",
+          "at": 1788724098.045824
+        },
+        {
+          "event": "speech_end",
+          "at": 1788724100.247915
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 42,
+      "visual_value": 42,
+      "transcript": "badcon Axle right battery 42%",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": "42%",
+          "value": 42
+        }
+      },
+      "audio_path": "runs/rubric-check2/right_battery.wav",
+      "screenshot": "runs/rubric-check2/right_battery.png",
+      "crop": "runs/rubric-check2/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788724115.2640798
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788724116.5451279
+        },
+        {
+          "event": "focus_action",
+          "at": 1788724117.3902762
+        },
+        {
+          "event": "speech_start",
+          "at": 1788724117.3907788
+        },
+        {
+          "event": "speech_end",
+          "at": 1788724120.695272
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    }
+  ],
+  "control": {
+    "silent": true,
+    "peak_level": 0.018261579796671867,
+    "duration_s": 13.0
+  }
+}

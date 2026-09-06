@@ -1,0 +1,374 @@
+{
+  "generated_at": "2026-09-06T20:08:11+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "injected defect": "none"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
+      "visual_value": 85,
+      "transcript": "All A/C is 85%.",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": "85%",
+          "value": 85
+        }
+      },
+      "audio_path": "runs/full-verified/left_battery.wav",
+      "screenshot": "runs/full-verified/left_battery.png",
+      "crop": "runs/full-verified/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725302.767901
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725304.049577
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725305.354366
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725305.355809
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725308.19683
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 42,
+      "visual_value": 42,
+      "transcript": "back on, left right battery 42%",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": "42%",
+          "value": 42
+        }
+      },
+      "audio_path": "runs/full-verified/right_battery.wav",
+      "screenshot": "runs/full-verified/right_battery.png",
+      "crop": "runs/full-verified/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725325.731916
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725327.0002801
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725327.819565
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725327.82008
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725331.102946
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "program-none",
+      "title": "program announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no known program name present",
+      "spoken_value": null,
+      "visual_value": "Noisy",
+      "transcript": "on 8 7 back program noise cancel selective",
+      "channels": {
+        "text_node": {
+          "raw": "Noisy",
+          "value": "Noisy"
+        },
+        "ocr": {
+          "raw": "Noisy",
+          "value": "Noisy"
+        }
+      },
+      "audio_path": "runs/full-verified/program.wav",
+      "screenshot": "runs/full-verified/program.png",
+      "crop": "runs/full-verified/program-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725347.025387
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725348.315454
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725349.153018
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725349.153703
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725352.6622028
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_volume-none",
+      "title": "left_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 4,
+      "visual_value": 4,
+      "transcript": "on 878 left volume level 4",
+      "channels": {
+        "text_node": {
+          "raw": "4",
+          "value": 4
+        },
+        "ocr": {
+          "raw": "4",
+          "value": 4
+        }
+      },
+      "audio_path": "runs/full-verified/left_volume.wav",
+      "screenshot": "runs/full-verified/left_volume.png",
+      "crop": "runs/full-verified/left_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725372.3484
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725373.627285
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725374.425923
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725374.426576
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725377.5273442
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_volume-none",
+      "title": "right_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": -3,
+      "visual_value": -3,
+      "transcript": "Turn A7Q, right volume, level minus 3.",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-3",
+          "value": -3
+        }
+      },
+      "audio_path": "runs/full-verified/right_volume.wav",
+      "screenshot": "runs/full-verified/right_volume.png",
+      "crop": "runs/full-verified/right_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725396.7902021
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725398.0630798
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725398.940376
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725398.940928
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725404.91635
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_connection-none",
+      "title": "left_connection announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_connection",
+      "field_type": "enum_state",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": "connected",
+      "visual_value": "connected",
+      "transcript": "Call 87, left hearing aid, connected.",
+      "channels": {
+        "text_node": {
+          "raw": "Connected",
+          "value": "connected"
+        },
+        "ocr": {
+          "raw": "Connected",
+          "value": "connected"
+        }
+      },
+      "audio_path": "runs/full-verified/left_connection.wav",
+      "screenshot": "runs/full-verified/left_connection.png",
+      "crop": "runs/full-verified/left_connection-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788725424.786444
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788725426.068862
+        },
+        {
+          "event": "focus_action",
+          "at": 1788725426.9671612
+        },
+        {
+          "event": "speech_start",
+          "at": 1788725426.9678028
+        },
+        {
+          "event": "speech_end",
+          "at": 1788725430.070027
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "prompt_version": "v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    }
+  ],
+  "control": {
+    "silent": false,
+    "peak_level": 0.030091799795627594,
+    "duration_s": 7.65
+  },
+  "available_fields": [
+    "left_battery",
+    "right_battery",
+    "program",
+    "left_volume",
+    "right_volume",
+    "left_connection"
+  ]
+}

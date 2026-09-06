@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass, field
 
 from ..parsing import FieldType
 
-PROGRAMS = ["Universal", "Noisy Environment", "Restaurant", "Music"]
+PROGRAMS = ["Universal", "Noisy", "Restaurant", "Music"]
 CONNECTION_WORDS = ["connected", "disconnected"]
 
 
@@ -39,12 +40,21 @@ def default_state() -> dict:
         "right_battery": 42,
         "left_volume": 4,
         "right_volume": -3,
-        "program": "Noisy Environment",
+        "program": "Noisy",
         "defect": "none",
     }
 
 
 def open_panel(driver, panel: str | None) -> None:
+    """Navigate to a panel by tapping a control on Home.
+
+    With TalkBack active, a raw `adb shell input tap` is intercepted as a
+    touch-exploration gesture (it announces the control, it does not click
+    it) exactly like a real screen-reader user's single tap would be. This
+    is scenario setup, not the thing under test, so TalkBack is disabled for
+    the tap and restored immediately after, the same as `set_talkback` does
+    for the audio capture window itself.
+    """
     if panel is None:
         return
     snapshot = driver.dump_hierarchy()
@@ -56,4 +66,19 @@ def open_panel(driver, panel: str | None) -> None:
         return
     if node is None:
         raise RuntimeError(f"cannot open {panel} panel: control not found")
+
+    was_enabled = driver.accessibility_settings().enabled
+    if was_enabled:
+        driver.set_talkback(False)
     driver.tap(*node.center)
+    if panel == "volume":
+        # The right slider can sit below the fold; scroll so both sliders are
+        # reachable, the way a sighted user would swipe to find it. Scroll
+        # distance is a fraction of the actual screen height so this works
+        # the same on a small emulator and a tall physical phone.
+        content = snapshot.by_id("content")
+        _, _, width, height = content.bounds if content else (0, 0, 1080, 2400)
+        driver.swipe(width // 2, int(height * 0.93), width // 2, int(height * 0.55), 300)
+    if was_enabled:
+        driver.set_talkback(True)
+        time.sleep(1.0)

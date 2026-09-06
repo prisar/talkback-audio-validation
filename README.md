@@ -25,6 +25,16 @@ Both install dependencies, run the test suite, execute the pipeline, and open th
 Start with `--replay`. It exercises the entire pipeline over committed fixtures and needs
 nothing but `uv`.
 
+`./run-demo.sh` **never builds the APK.** It installs `artifacts/aidsim.apk` — the one
+already shipped in this repo — onto whatever device `adb devices` currently sees, then runs
+against it. No Gradle, no Android SDK build tools, no app source tree, and no Appium are
+needed for this to work; verified by running it with `talkback-demo-app/` deleted entirely.
+If `artifacts/aidsim.apk` is ever missing, the script fails with the one command that
+rebuilds it — it will not attempt that itself. If `adb` sees no device, it tells you to fall
+back to `--replay` rather than hanging. If `tesseract` is missing and Homebrew can't install
+it, the adb-only semantics-tree audit still runs to completion and the audio-capture
+scenarios are skipped, not failed.
+
 ## What the demo shows
 
 | Case | Verdict | Why |
@@ -41,6 +51,27 @@ nothing but `uv`.
 `volume_sign` is the case worth pausing on. `-3` announced as "level 3" is a
 one-character divergence that fuzzy string matching would accept and a human listening
 casually would likely miss.
+
+## Semantics-tree audit, no microphone needed
+
+`talkback-validator audit` walks the live accessibility tree instead of comparing a
+configured field's spoken value against its displayed one, so it catches a different
+class of defect: a control that is clickable but has no accessible name, or a name
+generic enough to name nothing (`"Button"`, `"Image"`). It needs no ground truth and no
+audio capture, only a running device.
+
+```bash
+uv run talkback-validator audit --defect none        # 0 findings on the clean baseline
+uv run talkback-validator audit --defect a11y_suite   # flags open_volume_panel: "Button"
+```
+
+What it cannot catch: a label that reads fine but is simply wrong, e.g. a control
+labelled "Increase volume" that actually opens Programs. Nothing in the tree
+distinguishes that from a correct label without a ground truth this scanner does not
+have. `AidSim`'s `a11y_suite` defect mode carries five defects on purpose; `audit`
+detects the one that is structurally visible, `run` detects value mismatches, and
+neither alone covers all five. See `docs/talkback-audio-validation/SPEC.md` §16 for the
+full coverage table.
 
 ## Design
 
@@ -97,6 +128,7 @@ cd talkback-validator
 uv run talkback-validator doctor            # every prerequisite, with reasons
 uv run talkback-validator audio-devices     # list microphone inputs
 uv run talkback-validator run aidsim --defect volume_sign --control
+uv run talkback-validator audit --defect a11y_suite   # semantics-tree scan, no ground truth needed
 uv run talkback-validator replay fixtures
 uv run talkback-validator serve-report      # dashboard on 127.0.0.1
 uv run --with pytest pytest -q

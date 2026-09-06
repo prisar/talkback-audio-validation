@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TalkBack Audio Validation</title>
+<style>
+:root {
+  --bg: #ffffff; --fg: #14141a; --muted: #5c5c6b; --line: #e2e2ea;
+  --card: #f7f7fa; --pass: #1a7f45; --fail: #b3261e; --incon: #8a6d0b; --error: #6b3fa0;
+  --accent: #4338ca;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0f14; --fg: #ececf2; --muted: #a0a0b0; --line: #2a2a35;
+    --card: #17171f; --pass: #4ade80; --fail: #f87171; --incon: #fbbf24; --error: #c4b5fd;
+    --accent: #a5b4fc;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f0f14; --fg: #ececf2; --muted: #a0a0b0; --line: #2a2a35;
+  --card: #17171f; --pass: #4ade80; --fail: #f87171; --incon: #fbbf24; --error: #c4b5fd;
+  --accent: #a5b4fc;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 17px; margin: 36px 0 12px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.band { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; }
+.band div span { color: var(--muted); display: block; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .04em; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px; margin: 18px 0; }
+.tile { background: var(--card); border: 1px solid var(--line); border-left-width: 4px;
+  border-radius: 10px; padding: 14px 16px; }
+.tile .n { font-size: 28px; font-weight: 700; }
+.tile .l { font-size: 12px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: .05em; }
+.tile.PASS { border-left-color: var(--pass); } .tile.PASS .n { color: var(--pass); }
+.tile.FAIL { border-left-color: var(--fail); } .tile.FAIL .n { color: var(--fail); }
+.tile.INCONCLUSIVE { border-left-color: var(--incon); } .tile.INCONCLUSIVE .n { color: var(--incon); }
+.tile.ERROR { border-left-color: var(--error); } .tile.ERROR .n { color: var(--error); }
+.tile.COVER { border-left-color: var(--accent); } .tile.COVER .n { color: var(--accent); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 720px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line);
+  vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: .04em; }
+.badge { font-weight: 700; white-space: nowrap; }
+.badge.PASS { color: var(--pass); } .badge.FAIL { color: var(--fail); }
+.badge.INCONCLUSIVE { color: var(--incon); } .badge.ERROR { color: var(--error); }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+details.case { background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; margin: 10px 0; padding: 12px 16px; }
+details.case summary { cursor: pointer; font-weight: 600; }
+.kv { display: grid; grid-template-columns: 190px 1fr; gap: 6px 14px;
+  margin: 12px 0; font-size: 13.5px; }
+.kv div:nth-child(odd) { color: var(--muted); }
+.note { background: var(--card); border-left: 3px solid var(--accent);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 14px 0;
+  font-size: 13.5px; color: var(--muted); }
+img { max-width: 100%; border: 1px solid var(--line); border-radius: 8px; }
+.shots { display: flex; gap: 14px; flex-wrap: wrap; }
+.shots figure { margin: 0; max-width: 260px; }
+.shots figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
+audio { width: 100%; margin: 8px 0; }
+</style></head><body><div class="wrap">
+<h1>TalkBack audio validation</h1>
+<p class="sub">Spoken value extracted from audio only, compared against the displayed
+value by deterministic Python. Generated 2026-09-06T15:19:26+00:00.</p>
+<div class="band"><div><span>mode</span>live device</div><div><span>driver</span>adb</div><div><span>device</span>{&quot;serial&quot;: &quot;emulator-5554&quot;, &quot;model&quot;: &quot;sdk_gphone64_x86_64&quot;, &quot;android_version&quot;: &quot;16&quot;, &quot;sdk&quot;: &quot;36&quot;, &quot;locale&quot;: &quot;en-US&quot;}</div><div><span>backend</span>fixture</div><div><span>model</span>recorded</div><div><span>injected defect</span>none</div></div>
+<div class="tiles"><div class='tile PASS'><div class='n'>0</div><div class='l'>● PASS</div></div><div class='tile FAIL'><div class='n'>0</div><div class='l'>▲ FAIL</div></div><div class='tile INCONCLUSIVE'><div class='n'>6</div><div class='l'>■ INCONCLUSIVE</div></div><div class='tile ERROR'><div class='n'>0</div><div class='l'>✖ ERROR</div></div><div class='tile COVER'><div class='n'>0/6</div><div class='l'>Decision coverage</div></div></div>
+<div class='note'><strong>No negative control in this run.</strong> Without a TalkBack-disabled capture, a silent result cannot be distinguished from a recording failure.</div>
+<h2>Cases</h2>
+<div class="scroll"><table>
+<tr><th>ID</th><th>Scenario</th><th>Field</th><th>Status</th><th>Reason</th>
+<th>Spoken</th><th>Displayed</th></tr>
+<tr><td class='mono'>left_battery-none</td><td>aidsim</td><td>left_battery</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>VISUAL_CHANNELS_DISAGREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>right_battery-none</td><td>aidsim</td><td>right_battery</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>SPOKEN_VALUE_ABSENT</td><td class='mono'></td><td class='mono'>42</td></tr><tr><td class='mono'>program-none</td><td>aidsim</td><td>program</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>VISUAL_CHANNELS_DISAGREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>left_volume-none</td><td>aidsim</td><td>left_volume</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>SPOKEN_VALUE_ABSENT</td><td class='mono'></td><td class='mono'>4</td></tr><tr><td class='mono'>right_volume-none</td><td>aidsim</td><td>right_volume</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>ELEMENT_NOT_IN_A11Y_TREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>left_connection-none</td><td>aidsim</td><td>left_connection</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>VISUAL_CHANNELS_DISAGREE</td><td class='mono'></td><td class='mono'></td></tr>
+</table></div>
+<h2>Evidence</h2>
+
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_battery-none
+    &mdash; left_battery announced by TalkBack</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_battery (percentage)</div><div>Reason</div><div>VISUAL_CHANNELS_DISAGREE</div><div>Detail</div><div>reference channels disagree: {&#x27;text_node&#x27;: 85, &#x27;ocr&#x27;: 35}</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
+  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
+  <h3 style="font-size:14px">Visual channels</h3>
+  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>35%</td><td class='mono'>35</td><td class='mono'></td></tr></table></div>
+  <audio controls src='left_battery.wav'></audio>
+  <div class='shots'><figure><img src='left_battery.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_battery-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
+  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.33s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.654s</td></tr><tr><td class='mono'>timeout</td><td class='mono'>13.681s</td></tr></table></div>
+</details>
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; right_battery-none
+    &mdash; right_battery announced by TalkBack</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>right_battery (percentage)</div><div>Reason</div><div>SPOKEN_VALUE_ABSENT</div><div>Detail</div><div>no value could be extracted from the audio</div><div>Spoken value</div><div></div><div>Displayed value</div><div>42</div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
+  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
+  <h3 style="font-size:14px">Visual channels</h3>
+  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr></table></div>
+  <audio controls src='right_battery.wav'></audio>
+  <div class='shots'><figure><img src='right_battery.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_battery-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
+  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.291s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.552s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>2.843s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>4.593s</td></tr></table></div>
+</details>
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; program-none
+    &mdash; program announced by TalkBack</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>program (name_with_state)</div><div>Reason</div><div>VISUAL_CHANNELS_DISAGREE</div><div>Detail</div><div>reference channels disagree: {&#x27;text_node&#x27;: &#x27;Noisy Environment&#x27;, &#x27;ocr&#x27;: &#x27;Ftvivonment&#x27;}</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
+  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
+  <h3 style="font-size:14px">Visual channels</h3>
+  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Noisy Environment</td><td class='mono'>Noisy Environment</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Ftvivonment</td><td class='mono'>Ftvivonment</td><td class='mono'></td></tr></table></div>
+  <audio controls src='program.wav'></audio>
+  <div class='shots'><figure><img src='program.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='program-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
+  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.268s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.484s</td></tr><tr><td class='mono'>timeout</td><td class='mono'>13.519s</td></tr></table></div>
+</details>
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_volume-none
+    &mdash; left_volume announced by TalkBack</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_volume (signed_level)</div><div>Reason</div><div>SPOKEN_VALUE_ABSENT</div><div>Detail</div><div>no value could be extracted from the audio</div><div>Spoken value</div><div></div><div>Displayed value</div><div>4</div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
+  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
+  <h3 style="font-size:14px">Visual channels</h3>
+  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>4</td><td class='mono'>4</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>A</td><td class='mono'></td><td class='mono'></td></tr></table></div>
+  <audio controls src='left_volume.wav'></audio>
+  <div class='shots'><figure><img src='left_volume.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_volume-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
+  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.267s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.439s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>4.77s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>6.065s</td></tr></table></div>
+</details>
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; right_volume-none
+    &mdash; right_volume is not present in the accessibility tree</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>right_volume (signed_level)</div><div>Reason</div><div>ELEMENT_NOT_IN_A11Y_TREE</div><div>Detail</div><div>node volume_right not on screen</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>None / None</div><div>Prompt version</div><div></div><div>Driver</div><div>adb</div></div>
+  
+  <h3 style="font-size:14px">Visual channels</h3>
+  
+  
+  
+  
+</details>
+<details class="case">
+  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_connection-none
+    &mdash; left_connection announced by TalkBack</summary>
+  
+  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_connection (enum_state)</div><div>Reason</div><div>VISUAL_CHANNELS_DISAGREE</div><div>Detail</div><div>reference channels disagree: {&#x27;text_node&#x27;: &#x27;connected&#x27;, &#x27;ocr&#x27;: &#x27;connectéa@&#x27;}</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
+  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
+  <h3 style="font-size:14px">Visual channels</h3>
+  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Connected</td><td class='mono'>connected</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Connectéa@</td><td class='mono'>connectéa@</td><td class='mono'></td></tr></table></div>
+  <audio controls src='left_connection.wav'></audio>
+  <div class='shots'><figure><img src='left_connection.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_connection-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
+  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.259s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.442s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>4.262s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>6.109s</td></tr></table></div>
+</details>
+<div class="note">A green run states that these observations agreed. It is not a
+statement about TalkBack's general correctness, and a mismatch identifies disagreement
+in this observation rather than naming its root cause.</div>
+</div></body></html>

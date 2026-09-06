@@ -20,6 +20,11 @@ TALKBACK_SERVICE = (
     "com.google.android.marvin.talkback.TalkBackService"
 )
 
+FOCUS_HELPER_PACKAGE = "com.talkbacklab.focushelper"
+FOCUS_HELPER_RUNNER = (
+    "com.talkbacklab.focushelper.test/androidx.test.runner.AndroidJUnitRunner"
+)
+
 
 class AdbError(RuntimeError):
     pass
@@ -171,10 +176,17 @@ class AdbDriver:
     def set_talkback(self, enabled: bool) -> None:
         if enabled:
             self.shell(f"settings put secure enabled_accessibility_services {TALKBACK_SERVICE}")
+            self.shell(f"settings put secure accessibility_shortcut_target_service {TALKBACK_SERVICE}")
             self.shell("settings put secure accessibility_enabled 1")
         else:
-            self.shell("settings put secure accessibility_enabled 0")
+            # accessibility_shortcut_target_service still pointing at TalkBack
+            # silently re-enables it moments later (the volume-key-hold
+            # shortcut re-asserts it) even after enabled_accessibility_services
+            # is cleared, so a "disabled" TalkBack does not stay disabled long
+            # enough for a scripted tap to land as a real click.
+            self.shell("settings put secure accessibility_shortcut_target_service ''")
             self.shell("settings put secure enabled_accessibility_services ''")
+            self.shell("settings put secure accessibility_enabled 0")
 
     def talkback_installed(self) -> bool:
         out = self.shell("pm list packages com.google.android.marvin.talkback")
@@ -183,6 +195,38 @@ class AdbDriver:
     def move_accessibility_focus(self, keycode: str = "KEYCODE_DPAD_DOWN") -> FocusEvent:
         self.shell(f"input keyevent {keycode}")
         return FocusEvent(method=f"keyevent {keycode}", at=time.time())
+
+    def install_focus_helper(self, app_apk: str | Path, test_apk: str | Path) -> None:
+        """Installs the on-device instrumentation helper that moves TalkBack's
+        accessibility focus via ACTION_ACCESSIBILITY_FOCUS, the same API an
+        AccessibilityService uses. A raw `input tap` only ever approximates
+        this: on some OEM builds it can move focus onto the wrong sibling
+        node entirely, an error a real accessibility action does not make."""
+        self._run("install", "-r", str(app_apk), timeout=120)
+        self._run("install", "-r", str(test_apk), timeout=120)
+
+    def focus_by_id(self, target_package: str, resource_id: str) -> FocusEvent:
+        """Moves accessibility focus to a node by resource-id via the
+        focus-helper instrumentation. Requires install_focus_helper() and
+        TalkBack (touch exploration) to already be enabled -- the platform
+        rejects ACTION_ACCESSIBILITY_FOCUS outright when it is not, even
+        though a plain ACTION_CLICK still succeeds."""
+        command = (
+            "am instrument -w "
+            f"-e class {FOCUS_HELPER_PACKAGE}.FocusTest#focusByResourceId "
+            f"-e target_package {target_package} -e resource_id {resource_id} "
+            f"{FOCUS_HELPER_RUNNER}"
+        )
+        try:
+            out = self.shell(command, timeout=30)
+        except AdbError as exc:
+            return FocusEvent(method="accessibility_focus_action", guided=True, confirmed=False, at=time.time())
+        return FocusEvent(
+            method="accessibility_focus_action",
+            guided=True,
+            confirmed="OK (1 test)" in out,
+            at=time.time(),
+        )
 
     def tap(self, x: int, y: int) -> None:
         self.shell(f"input tap {x} {y}")
@@ -228,6 +272,9 @@ def _parse_hierarchy(xml: str) -> HierarchySnapshot:
                 content_desc=element.get("content-desc") or "",
                 bounds=bounds,
                 focused=(element.get("focused") == "true"),
+                clickable=(element.get("clickable") == "true"),
+                class_name=element.get("class") or "",
+                package=element.get("package") or "",
             )
         )
     return HierarchySnapshot(nodes=nodes, captured_at=time.time())

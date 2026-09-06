@@ -1,0 +1,382 @@
+{
+  "generated_at": "2026-09-06T21:40:23+00:00",
+  "environment": {
+    "mode": "live device",
+    "driver": "adb",
+    "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
+    "backend": "whisper-local",
+    "model": "small.en",
+    "injected defect": "none",
+    "screen reader": "gemini"
+  },
+  "cases": [
+    {
+      "id": "left_battery-none",
+      "title": "left_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
+      "visual_value": 85,
+      "transcript": "on 8 sim 85%",
+      "channels": {
+        "text_node": {
+          "raw": "85%",
+          "value": 85
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 12.831499317s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.8-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '12s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/left_battery.wav",
+      "screenshot": "runs/dashboard-demo/left_battery.png",
+      "crop": "runs/dashboard-demo/left_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730834.922534
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730836.047508
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730837.572839
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730837.57349
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730841.252338
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_battery-none",
+      "title": "right_battery announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_battery",
+      "field_type": "percentage",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 42,
+      "visual_value": 42,
+      "transcript": "Top back on, 80 drive battery, 42 percent.",
+      "channels": {
+        "text_node": {
+          "raw": "42%",
+          "value": 42
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 54.081464457s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.8-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/right_battery.wav",
+      "screenshot": "runs/dashboard-demo/right_battery.png",
+      "crop": "runs/dashboard-demo/right_battery-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730857.698845
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730858.8150442
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730859.628204
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730859.6287801
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730862.966553
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "program-none",
+      "title": "program announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "program",
+      "field_type": "name_with_state",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": "Noisy",
+      "visual_value": "Noisy",
+      "transcript": "Stop back on, change the program Noisy selected.",
+      "channels": {
+        "text_node": {
+          "raw": "Noisy",
+          "value": "Noisy"
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 34.903592947s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.8-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '34s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/program.wav",
+      "screenshot": "runs/dashboard-demo/program.png",
+      "crop": "runs/dashboard-demo/program-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730876.498549
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730877.616566
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730878.471659
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730878.471987
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730882.0131981
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_volume-none",
+      "title": "left_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 4,
+      "visual_value": 4,
+      "transcript": "Top back on, left volume, level 4.",
+      "channels": {
+        "text_node": {
+          "raw": "4",
+          "value": 4
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 11.38043934s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.8-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '11s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/left_volume.wav",
+      "screenshot": "runs/dashboard-demo/left_volume.png",
+      "crop": "runs/dashboard-demo/left_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730900.55835
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730901.67778
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730902.501558
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730902.502205
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730905.677459
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "right_volume-none",
+      "title": "right_volume announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "right_volume",
+      "field_type": "signed_level",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": -3,
+      "visual_value": -3,
+      "transcript": "Top back on, right volume, level minus 3.",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 47.258438051s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.8-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '47s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/right_volume.wav",
+      "screenshot": "runs/dashboard-demo/right_volume.png",
+      "crop": "runs/dashboard-demo/right_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730924.17846
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730925.302672
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730926.17696
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730926.177512
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730929.701887
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    },
+    {
+      "id": "left_connection-none",
+      "title": "left_connection announced by TalkBack",
+      "scenario": "aidsim",
+      "field": "left_connection",
+      "field_type": "enum_state",
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": "connected",
+      "transcript": "Left hearing is selected",
+      "channels": {
+        "text_node": {
+          "raw": "Connected",
+          "value": "connected"
+        },
+        "ocr": {
+          "raw": null,
+          "value": null,
+          "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 22.748510978s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.8-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '22s'}]}}"
+        }
+      },
+      "audio_path": "runs/dashboard-demo/left_connection.wav",
+      "screenshot": "runs/dashboard-demo/left_connection.png",
+      "crop": "runs/dashboard-demo/left_connection-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788730947.809817
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788730948.935528
+        },
+        {
+          "event": "focus_action",
+          "at": 1788730949.77106
+        },
+        {
+          "event": "speech_start",
+          "at": 1788730949.788621
+        },
+        {
+          "event": "speech_end",
+          "at": 1788730954.185631
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
+      "driver": "adb",
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
+    }
+  ],
+  "control": {
+    "silent": false,
+    "peak_level": 0.02362240105867386,
+    "duration_s": 7.95
+  },
+  "available_fields": [
+    "left_battery",
+    "right_battery",
+    "program",
+    "left_volume",
+    "right_volume",
+    "left_connection"
+  ],
+  "defect": "none"
+}

@@ -94,6 +94,29 @@ def test_signed_level_out_of_range():
     assert parse_signed_level("Volume level 40").status is ParseStatus.OUT_OF_RANGE
 
 
+def test_signed_level_ignores_noise_number_before_level():
+    # Real capture: background chatter ("Track one") contributed a spurious
+    # "1" ahead of TalkBack's own "level minus 3". The number anchored to
+    # "level" must win outright rather than making the two look ambiguous.
+    result = parse_signed_level("Track one. Right volume level minus 3.")
+    assert result.status is ParseStatus.OK
+    assert result.value == -3
+
+
+def test_signed_level_ignores_noise_number_after_level():
+    result = parse_signed_level("Right volume level 4. Take two.")
+    assert result.status is ParseStatus.OK
+    assert result.value == 4
+
+
+def test_signed_level_still_ambiguous_without_a_level_anchor():
+    # No "level" phrase to anchor to at all: two genuinely distinct numbers
+    # in the transcript must still be reported as ambiguous, not guessed at.
+    result = parse_signed_level("Three. Minus three.")
+    assert result.status is ParseStatus.AMBIGUOUS
+    assert result.candidates == [-3, 3]
+
+
 def test_name_with_state():
     result = parse(
         "Program, Noisy Environment, selected",

@@ -11,6 +11,9 @@ class Node:
     content_desc: str = ""
     bounds: tuple[int, int, int, int] = (0, 0, 0, 0)
     focused: bool = False
+    clickable: bool = False
+    class_name: str = ""
+    package: str = ""
 
     @property
     def center(self) -> tuple[int, int]:
