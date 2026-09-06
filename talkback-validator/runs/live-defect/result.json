@@ -1,26 +1,39 @@
 {
-  "generated_at": "2026-09-06T17:13:02+00:00",
+  "generated_at": "2026-09-06T22:36:06+00:00",
   "environment": {
     "mode": "live device",
     "driver": "adb",
     "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
     "backend": "fixture",
     "model": "recorded",
-    "injected defect": "volume_sign"
+    "injected defect": "volume_sign",
+    "screen reader": "tesseract"
   },
   "cases": [
     {
       "id": "right_volume-volume_sign",
-      "title": "right_volume is not present in the accessibility tree",
+      "title": "right_volume: transcription backend failed",
       "scenario": "aidsim",
       "field": "right_volume",
       "field_type": "signed_level",
-      "status": "INCONCLUSIVE",
-      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
-      "detail": "node volume_right not on screen",
+      "status": "ERROR",
+      "reason": "MODEL_UNAVAILABLE",
+      "detail": "no recorded transcript beside runs/live-defect/right_volume.wav",
+      "audio_path": "runs/live-defect/right_volume.wav",
+      "backend": "fixture",
+      "model": "recorded",
       "driver": "adb",
       "injected_defect": "volume_sign"
     }
   ],
-  "control": null
+  "control": null,
+  "available_fields": [
+    "left_battery",
+    "right_battery",
+    "program",
+    "left_volume",
+    "right_volume",
+    "left_connection"
+  ],
+  "defect": "volume_sign"
 }

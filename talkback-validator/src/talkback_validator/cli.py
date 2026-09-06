@@ -16,6 +16,7 @@ from .capture import CaptureConfig, MicUnavailable, list_input_devices, record, 
 from .comparison import CaptureValidity, Reason, Verdict, compare
 from .parsing import FieldType, parse
 from .scenarios import aidsim
+from .transcription.base import TranscriptResult
 from .visual import OcrUnavailable, build_visual_result, crop_and_ocr, crop_region, parse_displayed
 
 ARTIFACTS = Path(__file__).resolve().parents[3] / "artifacts"
@@ -43,25 +44,103 @@ def _backend(offline: bool, choice: str | None = None):
                 "uv sync --extra local"
             )
         return backend
-    backend = GeminiBackend(model=os.environ.get("TBV_MODEL", "gemini-flash-latest"))
+    backend = GeminiBackend(model=os.environ.get("TBV_MODEL", "gemini-flash-lite-latest"))
     if not backend.available():
         return FixtureBackend()
     return backend
 
 
-def _screen_reader(backend):
+def _screen_reader(backend, choice: str | None = None):
     """The channel that reads the screen is chosen independently of the one
-    that reads the audio. A local speech model cannot read a screenshot, and
-    tesseract misreads the rendered digits often enough to stall a run on
-    VISUAL_CHANNELS_DISAGREE, so a local audio run still prefers the cloud
-    model here when it is configured. It is a separate call with its own
-    prompt and never sees the transcript, so the channels stay independent."""
+    that reads the audio, because a speech model cannot read a screenshot and
+    tesseract misreads rendered digits often enough to stall a run on
+    VISUAL_CHANNELS_DISAGREE. Whatever is chosen makes its own call with its
+    own prompt and never sees the transcript, so the channels stay independent.
+
+    Returning None means no model reads the screen and tesseract alone does,
+    which is the honest fallback rather than an error.
+    """
+    from .transcription.gemini import GeminiBackend
+    from .transcription.vision import LocalVisionBackend
+
+    choice = choice or os.environ.get("TBV_SCREEN_READER", "auto")
+
+    if choice == "tesseract":
+        return None
+    if choice == "gemini":
+        reader = GeminiBackend(model=os.environ.get("TBV_MODEL", "gemini-flash-lite-latest"))
+        if not reader.available():
+            raise SystemExit("screen reader 'gemini' requested but GEMINI_API_KEY is not set")
+        return reader
+    if choice != "auto":
+        reader = LocalVisionBackend(model=choice)
+        if not reader.available():
+            raise SystemExit(
+                f"screen reader '{choice}' requested but it is not installed: "
+                f"uv run talkback-validator models install {choice}"
+            )
+        return reader
+
+    local = _installed_vision_model()
+    if local is not None:
+        return LocalVisionBackend(model=local)
     if hasattr(backend, "read_screen_value"):
         return backend
-    from .transcription.gemini import GeminiBackend
-
-    reader = GeminiBackend(model=os.environ.get("TBV_MODEL", "gemini-flash-latest"))
+    reader = GeminiBackend(model=os.environ.get("TBV_MODEL", "gemini-flash-lite-latest"))
     return reader if reader.available() else None
+
+
+def _installed_vision_model() -> str | None:
+    """A local vision model, once installed, is preferred over the cloud one
+    even when a key is present: it is the choice that keeps a run on-device."""
+    from . import models
+
+    for spec in models.for_role(models.VISION):
+        if not spec.blocked and models.is_installed(spec):
+            return spec.id
+    return None
+
+
+def _is_local(backend) -> bool:
+    return getattr(backend, "name", "") in {"whisper-local", "ollama-vision", ""}
+
+
+def cmd_models(args) -> int:
+    """Local models are opt-in. Nothing is downloaded until a tester asks for
+    it by name, and the catalogue states what each one can observe and what it
+    costs on disk before they commit to it."""
+    from . import models
+
+    if args.action == "list":
+        rows = models.status()
+        width = max(len(row["id"]) for row in rows)
+        for row in rows:
+            mark = "installed" if row["installed"] else "         "
+            roles = ",".join(row["roles"]) or "-"
+            print(f"  [{mark}] {row['id']:<{width}}  {roles:<13} {row['size_gb']:>5.1f} GB")
+            detail = row["blocked"] and f"unavailable here: {row['blocked']}" or row["note"]
+            if detail:
+                print(f"   {'':<{width}}   {detail}")
+        return 0
+
+    if not args.model:
+        print(f"which model? see: talkback-validator models list")
+        return 1
+    spec = models.BY_ID.get(args.model)
+    if spec is None:
+        print(f"unknown model {args.model!r}; see: talkback-validator models list")
+        return 1
+
+    if args.action == "remove":
+        return 0 if models.remove(spec, log=print) else 1
+
+    try:
+        models.install(spec, log=print)
+    except Exception as exc:
+        print(f"could not install {spec.id}: {exc}")
+        return 1
+    print(f"{spec.id} is ready")
+    return 0
 
 
 def cmd_audio_devices(_args) -> int:
@@ -334,7 +413,38 @@ def cmd_replay(args) -> int:
     return 0
 
 
+def _assert_local_selection(args) -> None:
+    """Refuses a local-only run whose selections are not actually local,
+    rather than starting one and blocking its calls halfway through."""
+    if getattr(args, "backend", None) not in {"whisper"}:
+        raise SystemExit(
+            "--local-only needs a local transcription backend: pass --backend whisper"
+        )
+    reader = getattr(args, "screen_reader", None) or os.environ.get(
+        "TBV_SCREEN_READER", "auto"
+    )
+    if reader == "gemini":
+        raise SystemExit("--local-only cannot use the gemini screen reader")
+    if reader == "auto" and _installed_vision_model() is None:
+        print(
+            "no local vision model is installed; the screen will be read by tesseract only",
+            file=sys.stderr,
+        )
+
+
 def cmd_run(args) -> int:
+    """Local-only runs execute behind a loopback guard so the offline claim is
+    enforced rather than asserted: anything reaching for the network raises."""
+    if getattr(args, "local_only", False):
+        _assert_local_selection(args)
+        from .netguard import loopback_only
+
+        with loopback_only():
+            return _run_scenario(args)
+    return _run_scenario(args)
+
+
+def _run_scenario(args) -> int:
     driver = _driver(args.serial)
     backend = _backend(args.offline, getattr(args, "backend", None))
     out_dir = Path(args.out or DEFAULT_OUT / f"run-{int(time.time())}")
@@ -408,10 +518,15 @@ def cmd_run(args) -> int:
     )
     # Carried so the report's re-run panel can offer every field the scenario
     # has, not just the subset this run happened to capture.
-    screen_reader = _screen_reader(backend)
+    screen_reader = _screen_reader(backend, getattr(args, "screen_reader", None))
     run["environment"]["screen reader"] = (
         getattr(screen_reader, "name", "") or "tesseract"
     )
+    reader_model = getattr(screen_reader, "model", "")
+    if reader_model:
+        run["environment"]["screen reader"] += f" ({reader_model})"
+    if getattr(args, "local_only", False):
+        run["environment"]["network"] = "loopback only, enforced"
     run["available_fields"] = [spec.name for spec in aidsim.FIELDS]
     run["defect"] = args.defect
 
@@ -485,7 +600,18 @@ def cmd_run(args) -> int:
             )
             continue
 
-        transcript = backend.transcribe(capture.wav_path)
+        if capture.silent:
+            # Never hand silence to a generative model: asked to transcribe a
+            # fixture containing nothing, gemini-flash-lite returned "Let's start
+            # from chapter 2." Silence is measured from the waveform, so it is
+            # answered from the waveform, and the call is not spent.
+            transcript = TranscriptResult(
+                backend=backend.name,
+                model=getattr(backend, "model", ""),
+                text="",
+            )
+        else:
+            transcript = backend.transcribe(capture.wav_path)
         if transcript.error:
             # A backend failure (bad model name, auth, quota, network) is not
             # evidence about TalkBack; conflating it with "no speech heard"
@@ -610,6 +736,12 @@ def _summarize(run: dict, path: Path) -> None:
 LOG_LINES = 400
 
 
+def _known_screen_reader(choice: str) -> bool:
+    from . import models
+
+    return choice in {"auto", "gemini", "tesseract"} or choice in models.BY_ID
+
+
 class _RunController:
     """Serialises re-runs: one capture at a time, since they share the phone
     and the microphone. A second request while a run is in flight is refused
@@ -652,19 +784,42 @@ class _RunController:
             backend = request.get("backend")
             if backend in {"gemini", "whisper"}:
                 command += ["--backend", backend]
+            reader = str(request.get("screen_reader") or "")
+            if reader and _known_screen_reader(reader):
+                command += ["--screen-reader", reader]
+            if request.get("local_only"):
+                command.append("--local-only")
             if request.get("control"):
                 command.append("--control")
-            self._log = [" ".join(command) + "\n\n"]
-            self._process = subprocess.Popen(
-                command,
-                cwd=Path.cwd(),
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                bufsize=1,
+            return self._launch(command)
+
+    def start_install(self, model: str) -> bool:
+        """Installing shares the one-at-a-time slot with capture: a download
+        saturating the machine while the microphone is open would corrupt the
+        very recording the run depends on."""
+        with self._lock:
+            if self.running():
+                return False
+            from . import models
+
+            if model not in models.BY_ID:
+                return False
+            return self._launch(
+                [sys.executable, "-m", "talkback_validator.cli", "models", "install", model]
             )
-            threading.Thread(target=self._drain, daemon=True).start()
-            return True
+
+    def _launch(self, command: list) -> bool:
+        self._log = [" ".join(command) + "\n\n"]
+        self._process = subprocess.Popen(
+            command,
+            cwd=Path.cwd(),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+        )
+        threading.Thread(target=self._drain, daemon=True).start()
+        return True
 
     def _drain(self) -> None:
         process = self._process
@@ -693,6 +848,11 @@ def _report_handler(root: Path, controller: _RunController):
             self.wfile.write(body)
 
         def do_GET(self):
+            if self.path.rstrip("/").endswith("/models") or self.path == "/models":
+                from . import models
+
+                self._json(200, {"models": models.status()})
+                return
             if self.path.rstrip("/").endswith("/status") or self.path == "/status":
                 self._json(200, {
                     "running": controller.running(),
@@ -703,7 +863,8 @@ def _report_handler(root: Path, controller: _RunController):
             super().do_GET()
 
         def do_POST(self):
-            if not (self.path == "/rerun" or self.path.rstrip("/").endswith("/rerun")):
+            route = self.path.rstrip("/").rsplit("/", 1)[-1]
+            if route not in {"rerun", "install"}:
                 self._json(404, {"error": "not found"})
                 return
             length = int(self.headers.get("Content-Length") or 0)
@@ -712,7 +873,11 @@ def _report_handler(root: Path, controller: _RunController):
             except ValueError:
                 self._json(400, {"error": "malformed request"})
                 return
-            if not controller.start(request):
+            if route == "install":
+                started = controller.start_install(str(request.get("model") or ""))
+            else:
+                started = controller.start(request)
+            if not started:
                 self._json(409, {"error": "a run is already in progress"})
                 return
             self._json(202, {"started": True})
@@ -782,8 +947,27 @@ def main(argv=None) -> int:
     run.add_argument("--audio-device", type=int)
     run.add_argument("--offline", action="store_true")
     run.add_argument("--backend", choices=["gemini", "whisper"], default=None)
+    run.add_argument(
+        "--screen-reader",
+        dest="screen_reader",
+        default=None,
+        help="auto, gemini, tesseract, or an installed vision model id",
+    )
+    run.add_argument(
+        "--local-only",
+        dest="local_only",
+        action="store_true",
+        help="refuse any network access for the duration of the run",
+    )
     run.add_argument("--control", action="store_true")
     run.set_defaults(func=cmd_run)
+
+    models_cmd = sub.add_parser("models", help="list, install or remove local models")
+    models_cmd.add_argument(
+        "action", choices=["list", "install", "remove"], nargs="?", default="list"
+    )
+    models_cmd.add_argument("model", nargs="?", default=None)
+    models_cmd.set_defaults(func=cmd_models)
 
     audit = sub.add_parser("audit", help="scan the live accessibility tree for label defects")
     audit.add_argument("--serial")

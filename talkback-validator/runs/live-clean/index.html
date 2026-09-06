@@ -1,160 +1,620 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TalkBack Audio Validation</title>
+<title>TalkBack audio validation</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2032%2032%27%3E%3Crect%20width=%2732%27%20height=%2732%27%20rx=%277%27%20fill=%27%230c7a6c%27/%3E%3Crect%20x=%277%27%20y=%279%27%20width=%2718%27%20height=%273%27%20rx=%271.5%27%20fill=%27%23fff%27/%3E%3Crect%20x=%277%27%20y=%2720%27%20width=%2718%27%20height=%273%27%20rx=%271.5%27%20fill=%27%23fff%27/%3E%3C/svg%3E">
 <style>
 :root {
-  --bg: #ffffff; --fg: #14141a; --muted: #5c5c6b; --line: #e2e2ea;
-  --card: #f7f7fa; --pass: #1a7f45; --fail: #b3261e; --incon: #8a6d0b; --error: #6b3fa0;
-  --accent: #4338ca;
+  --paper: #e9edf2; --card: #ffffff; --ink: #0d1520; --muted: #56646f;
+  --line: #ccd6e0; --rule: #aab8c6;
+  --pass: #0c7a6c; --fail: #c5330f; --incon: #9a6c05; --error: #63489c;
+  --ear-l: #1a4fd6; --ear-r: #c8102e; --accent: #0c7a6c;
+  --shadow: 0 1px 2px rgba(13, 21, 32, .06), 0 8px 24px -16px rgba(13, 21, 32, .3);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f0f14; --fg: #ececf2; --muted: #a0a0b0; --line: #2a2a35;
-    --card: #17171f; --pass: #4ade80; --fail: #f87171; --incon: #fbbf24; --error: #c4b5fd;
-    --accent: #a5b4fc;
+    --paper: #0a0f16; --card: #121b25; --ink: #e5ecf3; --muted: #8b9aa9;
+    --line: #223040; --rule: #35485c;
+    --pass: #2ec4a6; --fail: #ff7a5c; --incon: #dda62c; --error: #b096e6;
+    --ear-l: #6f9dff; --ear-r: #ff6f83; --accent: #2ec4a6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 30px -18px rgba(0, 0, 0, .9);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f0f14; --fg: #ececf2; --muted: #a0a0b0; --line: #2a2a35;
-  --card: #17171f; --pass: #4ade80; --fail: #f87171; --incon: #fbbf24; --error: #c4b5fd;
-  --accent: #a5b4fc;
+  --paper: #0a0f16; --card: #121b25; --ink: #e5ecf3; --muted: #8b9aa9;
+  --line: #223040; --rule: #35485c;
+  --pass: #2ec4a6; --fail: #ff7a5c; --incon: #dda62c; --error: #b096e6;
+  --ear-l: #6f9dff; --ear-r: #ff6f83; --accent: #2ec4a6;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 30px -18px rgba(0, 0, 0, .9);
 }
+
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg);
-  font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
-h1 { font-size: 24px; margin: 0 0 4px; }
-h2 { font-size: 17px; margin: 36px 0 12px; }
-.sub { color: var(--muted); margin: 0 0 24px; }
-.band { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; }
-.band div span { color: var(--muted); display: block; font-size: 11px;
-  text-transform: uppercase; letter-spacing: .04em; }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px; margin: 18px 0; }
-.tile { background: var(--card); border: 1px solid var(--line); border-left-width: 4px;
-  border-radius: 10px; padding: 14px 16px; }
-.tile .n { font-size: 28px; font-weight: 700; }
-.tile .l { font-size: 12px; color: var(--muted); text-transform: uppercase;
-  letter-spacing: .05em; }
-.tile.PASS { border-left-color: var(--pass); } .tile.PASS .n { color: var(--pass); }
-.tile.FAIL { border-left-color: var(--fail); } .tile.FAIL .n { color: var(--fail); }
-.tile.INCONCLUSIVE { border-left-color: var(--incon); } .tile.INCONCLUSIVE .n { color: var(--incon); }
-.tile.ERROR { border-left-color: var(--error); } .tile.ERROR .n { color: var(--error); }
-.tile.COVER { border-left-color: var(--accent); } .tile.COVER .n { color: var(--accent); }
-.scroll { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 720px; }
-th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line);
-  vertical-align: top; }
-th { color: var(--muted); font-weight: 600; font-size: 11.5px;
-  text-transform: uppercase; letter-spacing: .04em; }
-.badge { font-weight: 700; white-space: nowrap; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, ui-sans-serif, sans-serif;
+  font-feature-settings: "kern" 1;
+}
+.mono, code, .val, .eyebrow, .cap, h1, .seg, .stamp dd, .tag, .reason {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.masthead { padding: 56px 0 28px; border-bottom: 1px solid var(--rule); }
+.eyebrow { margin: 0 0 14px; font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0 0 14px; font-size: clamp(26px, 4.4vw, 40px); font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.1; }
+.lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 15.5px; }
+.stamp { display: flex; flex-wrap: wrap; gap: 6px 34px; margin: 26px 0 0; }
+.stamp div { min-width: 0; }
+.stamp dt { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 3px; }
+.stamp dd { margin: 0; font-size: 13px; overflow-wrap: anywhere; }
+
+section { margin: 44px 0 0; }
+h2 { margin: 0 0 14px; font-size: 12px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+.meter { display: flex; gap: 3px; height: 58px; }
+.meter .seg { display: flex; align-items: center; gap: 9px; min-width: fit-content;
+  padding: 0 16px; border-radius: 4px; color: #fff; white-space: nowrap;
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.meter .seg b { font-size: 21px; letter-spacing: -.01em; }
+.seg.PASS { background: var(--pass); } .seg.FAIL { background: var(--fail); }
+.seg.INCONCLUSIVE { background: var(--incon); } .seg.ERROR { background: var(--error); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .meter .seg { color: #06110d; }
+}
+:root[data-theme="dark"] .meter .seg { color: #06110d; }
+.meter .empty { flex: 1; border: 1px dashed var(--line); border-radius: 4px;
+  display: flex; align-items: center; padding: 0 16px; color: var(--muted); font-size: 13px; }
+
+.findings { margin: 18px 0 0; padding: 0; list-style: none; }
+.findings li { display: flex; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line);
+  font-size: 14px; align-items: baseline; }
+.findings li:first-child { border-top: none; }
+.findings .who { font-weight: 600; }
+.findings .what { color: var(--muted); }
+.allclear { margin: 18px 0 0; font-size: 14px; color: var(--muted); }
+
+.control { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px 18px; box-shadow: var(--shadow); }
+.tag { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); }
+.level { position: relative; flex: 1 1 220px; height: 10px; min-width: 180px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 999px; }
+.level .fill { position: absolute; inset: 0 auto 0 0; border-radius: 999px; }
+.level .mark { position: absolute; top: -5px; bottom: -5px; width: 2px;
+  background: var(--rule); }
+.control p { margin: 0; flex: 1 1 100%; font-size: 13.5px; color: var(--muted); }
+.control p strong { color: var(--ink); }
+
+.case { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  margin: 0 0 14px; box-shadow: var(--shadow); overflow: hidden; }
+.case-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.ear { width: 22px; height: 22px; border-radius: 5px; display: grid; place-items: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex: none; }
+.ear.L { background: var(--ear-l); } .ear.R { background: var(--ear-r); }
+.ear.none { background: none; border: 1px dashed var(--line); }
+.case-head .name { font-weight: 600; font-size: 15px; }
+.case-head .type { font-size: 12px; color: var(--muted); }
+.case-head .badge { margin-left: auto; font-size: 12px; font-weight: 700;
+  letter-spacing: .08em; white-space: nowrap; }
 .badge.PASS { color: var(--pass); } .badge.FAIL { color: var(--fail); }
 .badge.INCONCLUSIVE { color: var(--incon); } .badge.ERROR { color: var(--error); }
-code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
-details.case { background: var(--card); border: 1px solid var(--line);
-  border-radius: 10px; margin: 10px 0; padding: 12px 16px; }
-details.case summary { cursor: pointer; font-weight: 600; }
-.kv { display: grid; grid-template-columns: 190px 1fr; gap: 6px 14px;
-  margin: 12px 0; font-size: 13.5px; }
-.kv div:nth-child(odd) { color: var(--muted); }
-.note { background: var(--card); border-left: 3px solid var(--accent);
-  padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 14px 0;
-  font-size: 13.5px; color: var(--muted); }
-img { max-width: 100%; border: 1px solid var(--line); border-radius: 8px; }
-.shots { display: flex; gap: 14px; flex-wrap: wrap; }
-.shots figure { margin: 0; max-width: 260px; }
-.shots figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
-audio { width: 100%; margin: 8px 0; }
-</style></head><body><div class="wrap">
-<h1>TalkBack audio validation</h1>
-<p class="sub">Spoken value extracted from audio only, compared against the displayed
-value by deterministic Python. Generated 2026-09-06T17:11:42+00:00.</p>
-<div class="band"><div><span>mode</span>live device</div><div><span>driver</span>adb</div><div><span>device</span>{&quot;serial&quot;: &quot;adb-2acb6c28-s0PUFG._adb-tls-connect._tcp&quot;, &quot;model&quot;: &quot;CPH2447&quot;, &quot;android_version&quot;: &quot;16&quot;, &quot;sdk&quot;: &quot;36&quot;, &quot;locale&quot;: &quot;en-IN&quot;}</div><div><span>backend</span>fixture</div><div><span>model</span>recorded</div><div><span>injected defect</span>none</div></div>
-<div class="tiles"><div class='tile PASS'><div class='n'>0</div><div class='l'>● PASS</div></div><div class='tile FAIL'><div class='n'>0</div><div class='l'>▲ FAIL</div></div><div class='tile INCONCLUSIVE'><div class='n'>6</div><div class='l'>■ INCONCLUSIVE</div></div><div class='tile ERROR'><div class='n'>0</div><div class='l'>✖ ERROR</div></div><div class='tile COVER'><div class='n'>0/6</div><div class='l'>Decision coverage</div></div></div>
-<div class='note'><strong>Negative control: CAPTURED SPEECH.</strong> Peak level 0.023 over 5.45s with TalkBack disabled. The run is not trustworthy.</div>
-<h2>Cases</h2>
-<div class="scroll"><table>
-<tr><th>ID</th><th>Scenario</th><th>Field</th><th>Status</th><th>Reason</th>
-<th>Spoken</th><th>Displayed</th></tr>
-<tr><td class='mono'>left_battery-none</td><td>aidsim</td><td>left_battery</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>SPOKEN_VALUE_ABSENT</td><td class='mono'></td><td class='mono'>85</td></tr><tr><td class='mono'>right_battery-none</td><td>aidsim</td><td>right_battery</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>SPOKEN_VALUE_ABSENT</td><td class='mono'></td><td class='mono'>42</td></tr><tr><td class='mono'>program-none</td><td>aidsim</td><td>program</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>VISUAL_CHANNELS_DISAGREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>left_volume-none</td><td>aidsim</td><td>left_volume</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>ELEMENT_NOT_IN_A11Y_TREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>right_volume-none</td><td>aidsim</td><td>right_volume</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>ELEMENT_NOT_IN_A11Y_TREE</td><td class='mono'></td><td class='mono'></td></tr><tr><td class='mono'>left_connection-none</td><td>aidsim</td><td>left_connection</td><td><span class='badge INCONCLUSIVE'>■ INCONCLUSIVE</span></td><td class='mono'>ELEMENT_NOT_IN_A11Y_TREE</td><td class='mono'></td><td class='mono'></td></tr>
-</table></div>
-<h2>Evidence</h2>
 
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_battery-none
-    &mdash; left_battery announced by TalkBack</summary>
+.confront { display: grid; align-items: center; gap: 18px; padding: 26px 18px 22px;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 240px) minmax(0, 1fr); }
+.side { min-width: 0; }
+.side.shown { text-align: right; }
+.cap { display: block; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px; }
+.val { display: block; font-size: clamp(24px, 4.6vw, 36px); font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.1; overflow-wrap: anywhere; }
+.val.absent { color: var(--muted); font-size: 15px; font-weight: 500;
+  letter-spacing: .02em; }
+.src { display: block; margin-top: 7px; font-size: 12px; color: var(--muted);
+  overflow-wrap: anywhere; }
+.link { position: relative; text-align: center; }
+.link::before { content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 2px; margin-top: -1px; }
+.reason { position: relative; display: inline-block; padding: 0 9px;
+  background: var(--card); font-size: 10.5px; letter-spacing: .1em;
+  text-transform: uppercase; }
+.case.PASS .reason { color: var(--pass); }
+.case.PASS .link::before { background: var(--pass); }
+.case.FAIL .reason { color: var(--fail); }
+.case.INCONCLUSIVE .reason { color: var(--incon); }
+.case.ERROR .reason { color: var(--error); }
+.case.FAIL .val { color: var(--fail); }
+.case.FAIL .link::before { background: repeating-linear-gradient(90deg,
+  var(--fail) 0 7px, transparent 7px 14px); }
+.case.INCONCLUSIVE .link::before { background: repeating-linear-gradient(90deg,
+  var(--incon) 0 7px, transparent 7px 14px); }
+.case.ERROR .link::before { background: repeating-linear-gradient(90deg,
+  var(--error) 0 7px, transparent 7px 14px); }
+
+.quote { margin: 0; padding: 0 18px 20px; }
+.quote q { color: var(--muted); font-size: 14.5px; font-style: italic; }
+.quote .none { color: var(--muted); font-size: 14px; }
+
+.warn { margin: 0 18px 20px; padding: 11px 14px; border-radius: 8px;
+  border-left: 3px solid var(--incon); background: var(--paper);
+  font-size: 13px; color: var(--muted); }
+.warn strong { color: var(--ink); }
+
+details.evidence { border-top: 1px solid var(--line); }
+details.evidence > summary { cursor: pointer; padding: 12px 18px; font-size: 12px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  list-style: none; display: flex; align-items: center; gap: 9px; }
+details.evidence > summary::-webkit-details-marker { display: none; }
+details.evidence > summary::before { content: "+"; font-family: ui-monospace, monospace;
+  font-size: 14px; line-height: 1; }
+details.evidence[open] > summary::before { content: "2"; }
+details.evidence > summary:hover { color: var(--ink); }
+details.evidence[open] > summary { border-bottom: 1px solid var(--line); }
+.evidence-body { padding: 18px; display: grid; gap: 22px; }
+h3 { margin: 0 0 9px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600; }
+.kv { display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: 5px 16px;
+  font-size: 13.5px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; overflow-wrap: anywhere; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 440px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line);
+  vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: .1em; }
+tr:last-child td { border-bottom: none; }
+audio { width: 100%; max-width: 420px; }
+.shots { display: flex; gap: 16px; flex-wrap: wrap; }
+.shots figure { margin: 0; max-width: 240px; }
+.shots img { max-width: 100%; border: 1px solid var(--line); border-radius: 8px;
+  display: block; }
+.shots figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; box-shadow: var(--shadow); }
+.panel .hint { margin: 0 0 18px; font-size: 13.5px; color: var(--muted); max-width: 62ch; }
+.panel .group { margin: 0 0 16px; }
+.panel .group > span { display: block; font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.panel label { display: inline-flex; align-items: center; gap: 7px; margin: 0 16px 8px 0;
+  font-size: 14px; cursor: pointer; }
+.panel input { accent-color: var(--accent); }
+.panel button { font: inherit; font-weight: 600; padding: 10px 22px; border-radius: 8px;
+  cursor: pointer; border: 1px solid transparent; background: var(--accent);
+  color: var(--card); }
+.panel button:hover { filter: brightness(1.08); }
+.panel button[disabled] { opacity: .55; cursor: progress; filter: none; }
+.models { display: grid; gap: 2px; }
+.models .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 11px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.models .row:first-child { border-top: none; }
+.models .id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 600; min-width: 150px; }
+.models .roles { font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); }
+.models .size { color: var(--muted); font-size: 13px; }
+.models .why { flex: 1 1 100%; font-size: 13px; color: var(--muted); }
+.models .why.stop { color: var(--incon); }
+.models .act { margin-left: auto; }
+.models button { padding: 6px 14px; font-size: 13px; }
+.models button.ghost { background: none; border-color: var(--line); color: var(--muted); }
+.models .on { color: var(--pass); font-weight: 600; font-size: 13px; }
+#rerun-log:empty { display: none; }
+#rerun-log { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px; line-height: 1.5; color: var(--muted); margin-top: 16px;
+  max-height: 220px; overflow: auto; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+
+.footnote { margin: 44px 0 0; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footnote p { margin: 0; font-size: 13.5px; color: var(--muted); max-width: 68ch; }
+
+@media (max-width: 620px) {
+  .confront { grid-template-columns: 1fr; gap: 20px; }
+  .side.shown { text-align: left; }
+  .link { min-width: 0; align-items: flex-start; }
+  .meter { height: auto; flex-direction: column; }
+  .meter .seg { padding: 12px 16px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .case, .meter .seg { animation: rise .55s cubic-bezier(.22,.7,.28,1) backwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+}
+</style></head><body><div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Screen reader against screen</p>
+  <h1>TalkBack audio validation</h1>
+  <p class="lede">Each field below was heard from the phone's speaker through the laptop
+  microphone and read from the phone's screen by separate channels, then compared by
+  deterministic Python. Nothing that transcribes the audio is ever shown the answer.</p>
+  <dl class="stamp"><div><dt>mode</dt><dd>live device</dd></div><div><dt>driver</dt><dd>adb</dd></div><div><dt>phone</dt><dd>CPH2447 Android 16 en-IN</dd></div><div><dt>backend</dt><dd>whisper-local</dd></div><div><dt>model</dt><dd>small.en</dd></div><div><dt>injected defect</dt><dd>none</dd></div><div><dt>screen reader</dt><dd>tesseract</dd></div>
+    <div><dt>generated</dt><dd>2026-09-06T22:38:20+00:00</dd></div>
+  </dl>
+</header>
+
+<section>
+  <h2>Agreement across 6 fields</h2>
+  <div class='meter' role='img' aria-label='6 fields: 2 pass, 4 inconclusive'><div class='seg PASS' style='flex-grow:2;animation-delay:0ms'><b>2</b> pass</div><div class='seg INCONCLUSIVE' style='flex-grow:4;animation-delay:140ms'><b>4</b> inconclusive</div></div>
+  <ul class='findings'><li><span class='who mono'>right_battery</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: 42, &#x27;ocr&#x27;: 2}</span></li><li><span class='who mono'>left_volume</span><span class='what'>no value could be extracted from the audio</span></li><li><span class='who mono'>right_volume</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: -3, &#x27;ocr&#x27;: -5}</span></li><li><span class='who mono'>left_connection</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: &#x27;connected&#x27;, &#x27;ocr&#x27;: &#x27;-onnectec&#x27;}</span></li></ul>
+</section>
+
+<section>
+  <h2>Capture integrity</h2>
+  <div class="control">
+<span class="tag">Negative control</span>
+<div class="level" role="img"
+  aria-label="peak level 0.023 against a speech threshold of 0.02">
+  <div class="fill" style="width:23.1%;background:var(--fail)"></div>
+  <div class="mark" style="left:20.0%"></div>
+</div>
+<p>With TalkBack disabled the microphone <strong>picked up sound</strong>: peak
+0.023 over 3.6s against a speech
+threshold of 0.02 (marked on the scale). Speech was detected with the screen reader off, so the run cannot be trusted to have recorded TalkBack rather than ambient noise.</p>
+</div>
+</section>
+
+<section><h2>Run</h2>
+<div class="panel">
+<p class="hint">Captures live audio from the connected phone. Keep the laptop microphone
+near its speaker while the run is in flight.</p>
+<div class="group"><span>Fields</span><label><input type='checkbox' name='field' value='left_battery' checked> left_battery</label><label><input type='checkbox' name='field' value='right_battery' checked> right_battery</label><label><input type='checkbox' name='field' value='program' checked> program</label><label><input type='checkbox' name='field' value='left_volume' checked> left_volume</label><label><input type='checkbox' name='field' value='right_volume' checked> right_volume</label><label><input type='checkbox' name='field' value='left_connection' checked> left_connection</label></div>
+<div class="group"><span>Transcription backend</span><label><input type='radio' name='backend' value='gemini'> Gemini (cloud)</label><label><input type='radio' name='backend' value='whisper' checked> Whisper (local)</label></div>
+<div class="group"><span>Screen reader</span><label><input type='radio' name='screen_reader' value='auto' checked> Auto</label><label><input type='radio' name='screen_reader' value='gemini'> Gemini (cloud)</label><label><input type='radio' name='screen_reader' value='tesseract'> Tesseract (local OCR)</label></div>
+<div class="group"><span>Injected defect</span><label><input type='radio' name='defect' value='none' checked> none</label><label><input type='radio' name='defect' value='battery_value'> battery_value</label><label><input type='radio' name='defect' value='swap_sides'> swap_sides</label><label><input type='radio' name='defect' value='volume_sign'> volume_sign</label><label><input type='radio' name='defect' value='missing_label'> missing_label</label><label><input type='radio' name='defect' value='a11y_suite'> a11y_suite</label></div>
+<div class="group"><label><input type="checkbox" name="control" value="1" checked>
+Include the TalkBack-disabled negative control</label>
+<label><input type="checkbox" name="local_only" value="1">
+Local only: block all network access for the run</label></div>
+<button id="rerun-go" type="button">Run selected</button>
+<div id="rerun-log"></div>
+</div></section>
+
+<section><h2>Models</h2>
+<div class="panel">
+<p class="hint">Nothing here is downloaded until you ask for it. A model marked local
+runs entirely on this machine; combined with <em>Local only</em> above, the run is
+executed behind a guard that blocks every non-loopback connection, so an accidental
+call to a hosted API fails instead of succeeding quietly.</p>
+<div class="models" id="model-list">
+<p class="hint">The model list loads when this report is served. Start it with
+<code>talkback-validator serve-report</code>.</p>
+</div>
+</div></section>
+
+<section>
+  <h2>Fields</h2>
   
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_battery (percentage)</div><div>Reason</div><div>SPOKEN_VALUE_ABSENT</div><div>Detail</div><div>no value could be extracted from the audio</div><div>Spoken value</div><div></div><div>Displayed value</div><div>85</div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
-  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
-  <h3 style="font-size:14px">Visual channels</h3>
-  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'></td><td class='mono'></td><td class='mono'></td></tr></table></div>
-  <audio controls src='left_battery.wav'></audio>
-  <div class='shots'><figure><img src='left_battery.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_battery-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
-  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.276s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.39s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>1.679s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>5.377s</td></tr></table></div>
-</details>
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; right_battery-none
-    &mdash; right_battery announced by TalkBack</summary>
+<article class="case PASS" style="animation-delay:0ms">
+  <div class="case-head">
+    <span class='ear L' title='left side'>L</span>
+    <span class="name mono">left_battery</span>
+    <span class="type">percentage</span>
+    <span class="badge PASS">● PASS</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val">85</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">MATCH</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val">85</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>85%</q></blockquote>
   
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>right_battery (percentage)</div><div>Reason</div><div>SPOKEN_VALUE_ABSENT</div><div>Detail</div><div>no value could be extracted from the audio</div><div>Spoken value</div><div></div><div>Displayed value</div><div>42</div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
-  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
-  <h3 style="font-size:14px">Visual channels</h3>
-  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'></td><td class='mono'></td><td class='mono'></td></tr></table></div>
-  <audio controls src='right_battery.wav'></audio>
-  <div class='shots'><figure><img src='right_battery.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_battery-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
-  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.269s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.39s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>1.39s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>4.019s</td></tr></table></div>
-</details>
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; program-none
-    &mdash; program announced by TalkBack</summary>
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>left_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>85%</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>35 Y</td><td class='mono'></td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.124s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.56s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.561s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.024s</td></tr></table></div></div>
+</div></details>
+</article>
+<article class="case INCONCLUSIVE" style="animation-delay:55ms">
+  <div class="case-head">
+    <span class='ear R' title='right side'>R</span>
+    <span class="name mono">right_battery</span>
+    <span class="type">percentage</span>
+    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>Left right battery, 42%</q></blockquote>
   
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>program (name_with_state)</div><div>Reason</div><div>VISUAL_CHANNELS_DISAGREE</div><div>Detail</div><div>reference channels disagree: {&#x27;text_node&#x27;: &#x27;Noisy Environment&#x27;, &#x27;ocr&#x27;: &#x27;Tap again to turn off&#x27;}</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>fixture / recorded</div><div>Prompt version</div><div>v1</div><div>Driver</div><div>adb</div></div>
-  <div class='kv'><div>Accessibility before</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div><div>Accessibility after</div><div class='mono'>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</div></div>
-  <h3 style="font-size:14px">Visual channels</h3>
-  <div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Noisy Environment</td><td class='mono'>Noisy Environment</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Tap again to turn off</td><td class='mono'>Tap again to turn off</td><td class='mono'></td></tr></table></div>
-  <audio controls src='program.wav'></audio>
-  <div class='shots'><figure><img src='program.png' alt='screenshot'><figcaption>Full screenshot</figcaption></figure><figure><img src='program-crop.png' alt='crop'><figcaption>Value crop</figcaption></figure></div>
-  <h3 style='font-size:14px'>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>1.266s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>1.397s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>1.397s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>4.066s</td></tr></table></div>
-</details>
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_volume-none
-    &mdash; left_volume is not present in the accessibility tree</summary>
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>right_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: 42, &#x27;ocr&#x27;: 2}</dd><dt>Transcript</dt><dd>Left right battery, 42%</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>+2%</td><td class='mono'>2</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.117s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.912s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.913s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.267s</td></tr></table></div></div>
+</div></details>
+</article>
+<article class="case PASS" style="animation-delay:110ms">
+  <div class="case-head">
+    <span class='ear none' aria-hidden='true'></span>
+    <span class="name mono">program</span>
+    <span class="type">name_with_state</span>
+    <span class="badge PASS">● PASS</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val">Noisy</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">MATCH</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val">Noisy</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>program noisy selected</q></blockquote>
   
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_volume (signed_level)</div><div>Reason</div><div>ELEMENT_NOT_IN_A11Y_TREE</div><div>Detail</div><div>node volume_left not on screen</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>None / None</div><div>Prompt version</div><div></div><div>Driver</div><div>adb</div></div>
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>program-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>program noisy selected</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='program.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='program.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='program-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.12s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.989s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.99s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.471s</td></tr></table></div></div>
+</div></details>
+</article>
+<article class="case INCONCLUSIVE" style="animation-delay:165ms">
+  <div class="case-head">
+    <span class='ear L' title='left side'>L</span>
+    <span class="name mono">left_volume</span>
+    <span class="type">signed_level</span>
+    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">SPOKEN_VALUE_ABSENT</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val">4</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>Yeah, that&#x27;s cool.</q></blockquote>
   
-  <h3 style="font-size:14px">Visual channels</h3>
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>left_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>SPOKEN_VALUE_ABSENT</dd><dt>Detail</dt><dd>no value could be extracted from the audio</dd><dt>Transcript</dt><dd>Yeah, that&#x27;s cool.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>4</td><td class='mono'>4</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>l,</td><td class='mono'></td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.124s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.003s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.004s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.123s</td></tr></table></div></div>
+</div></details>
+</article>
+<article class="case INCONCLUSIVE" style="animation-delay:220ms">
+  <div class="case-head">
+    <span class='ear R' title='right side'>R</span>
+    <span class="name mono">right_volume</span>
+    <span class="type">signed_level</span>
+    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>right volume, levels minus 3.</q></blockquote>
   
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>right_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: -3, &#x27;ocr&#x27;: -5}</dd><dt>Transcript</dt><dd>right volume, levels minus 3.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-5</td><td class='mono'>-5</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.125s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.962s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.963s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.175s</td></tr></table></div></div>
+</div></details>
+</article>
+<article class="case INCONCLUSIVE" style="animation-delay:275ms">
+  <div class="case-head">
+    <span class='ear L' title='left side'>L</span>
+    <span class="name mono">left_connection</span>
+    <span class="type">enum_state</span>
+    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+  </div>
+  <div class="confront">
+    <div class="side heard">
+      <span class="cap">Heard</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">whisper-local · small.en</span>
+    </div>
+    <div class="link">
+      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+    </div>
+    <div class="side shown">
+      <span class="cap">Shown</span>
+      <span class="val absent">not recovered</span>
+      <span class="src">text_node + ocr</span>
+    </div>
+  </div>
+  <blockquote class='quote'><q>8, 7, 8, left hearing 8, connected.</q></blockquote>
   
-  
-  
-</details>
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; right_volume-none
-    &mdash; right_volume is not present in the accessibility tree</summary>
-  
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>right_volume (signed_level)</div><div>Reason</div><div>ELEMENT_NOT_IN_A11Y_TREE</div><div>Detail</div><div>node volume_right not on screen</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>None / None</div><div>Prompt version</div><div></div><div>Driver</div><div>adb</div></div>
-  
-  <h3 style="font-size:14px">Visual channels</h3>
-  
-  
-  
-  
-</details>
-<details class="case">
-  <summary><span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span> &nbsp; left_connection-none
-    &mdash; left_connection is not present in the accessibility tree</summary>
-  
-  <div class="kv"><div>Scenario</div><div>aidsim</div><div>Field</div><div>left_connection (enum_state)</div><div>Reason</div><div>ELEMENT_NOT_IN_A11Y_TREE</div><div>Detail</div><div>node status_left_connection not on screen</div><div>Spoken value</div><div></div><div>Displayed value</div><div></div><div>Transcript</div><div></div><div>Backend / model</div><div>None / None</div><div>Prompt version</div><div></div><div>Driver</div><div>adb</div></div>
-  
-  <h3 style="font-size:14px">Visual channels</h3>
-  
-  
-  
-  
-</details>
-<div class="note">A green run states that these observations agreed. It is not a
-statement about TalkBack's general correctness, and a mismatch identifies disagreement
-in this observation rather than naming its root cause.</div>
-</div></body></html>
+  <details class="evidence"><summary>Evidence</summary>
+<div class="evidence-body">
+<dl class="kv"><dt>Case</dt><dd>left_connection-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: &#x27;connected&#x27;, &#x27;ocr&#x27;: &#x27;-onnectec&#x27;}</dd><dt>Transcript</dt><dd>8, 7, 8, left hearing 8, connected.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Connected</td><td class='mono'>connected</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-onnectec</td><td class='mono'>-onnectec</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_connection.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_connection.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_connection-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.113s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.297s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.298s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.458s</td></tr></table></div></div>
+</div></details>
+</article>
+</section>
+
+<footer class="footnote"><p>Agreement states that these two observations matched on this
+device, in this run. It is not a claim about TalkBack's general correctness, and a
+disagreement locates a conflict rather than naming its cause.</p></footer>
+
+</div><script>
+const btn = document.getElementById('rerun-go');
+const log = document.getElementById('rerun-log');
+function picked(name) {
+  return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked'))
+    .map(function (i) { return i.value; });
+}
+async function poll() {
+  let r;
+  try {
+    r = await fetch('status').then(function (x) { return x.json(); });
+  } catch (err) {
+    log.textContent = 'Lost contact with the server while the run was in flight.';
+    btn.disabled = false;
+    btn.textContent = 'Run selected';
+    return;
+  }
+  log.textContent = r.log;
+  log.scrollTop = log.scrollHeight;
+  if (r.running) { setTimeout(poll, 1000); return; }
+  btn.disabled = false;
+  btn.textContent = 'Run selected';
+  if (r.exit_code === 0) { location.reload(); }
+  else { loadModels(); }
+}
+function release(message) {
+  log.textContent = message;
+  btn.disabled = false;
+  btn.textContent = 'Run selected';
+}
+async function loadModels() {
+  const host = document.getElementById('model-list');
+  let data;
+  try {
+    data = await fetch('models').then(function (x) { return x.json(); });
+  } catch (err) {
+    return;
+  }
+  const readers = document.querySelector('input[name="screen_reader"]').parentNode.parentNode;
+  host.innerHTML = '';
+  data.models.forEach(function (m) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    const roles = m.roles.length ? m.roles.join(' + ') : 'neither channel';
+    row.innerHTML = '<span class="id">' + m.id + '</span>' +
+      '<span class="roles">' + roles + '</span>' +
+      '<span class="size">' + m.size_gb.toFixed(1) + ' GB</span>';
+    const act = document.createElement('span');
+    act.className = 'act';
+    if (m.blocked) {
+      act.innerHTML = '<span class="size">unavailable</span>';
+    } else if (m.installed) {
+      act.innerHTML = '<span class="on">installed</span>';
+    } else {
+      const go = document.createElement('button');
+      go.type = 'button';
+      go.className = 'ghost';
+      go.textContent = 'Install';
+      go.addEventListener('click', function () { install(m.id, go); });
+      act.appendChild(go);
+    }
+    row.appendChild(act);
+    if (m.blocked || m.note) {
+      const why = document.createElement('span');
+      why.className = m.blocked ? 'why stop' : 'why';
+      why.textContent = m.blocked || m.note;
+      row.appendChild(why);
+    }
+    host.appendChild(row);
+    if (m.installed && m.roles.indexOf('vision') >= 0) {
+      if (!document.querySelector('input[name="screen_reader"][value="' + m.id + '"]')) {
+        const label = document.createElement('label');
+        label.innerHTML = '<input type="radio" name="screen_reader" value="' + m.id +
+          '"> ' + m.id + ' (local)';
+        readers.appendChild(label);
+      }
+    }
+  });
+}
+async function install(model, button) {
+  button.disabled = true;
+  button.textContent = 'Installing...';
+  log.textContent = 'starting download...';
+  let res;
+  try {
+    res = await fetch('install', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: model })
+    });
+  } catch (err) {
+    button.disabled = false;
+    button.textContent = 'Install';
+    release('Cannot reach the server that published this page.');
+    return;
+  }
+  if (!res.ok) {
+    button.disabled = false;
+    button.textContent = 'Install';
+    release(res.status === 409
+      ? 'Something is already running on this device. Wait for it to finish.'
+      : 'The server refused the install (' + res.status + ').');
+    return;
+  }
+  btn.disabled = true;
+  poll();
+}
+loadModels();
+btn.addEventListener('click', async function () {
+  const fields = picked('field');
+  if (!fields.length) { log.textContent = 'Select at least one field.'; return; }
+  btn.disabled = true;
+  btn.textContent = 'Running on device...';
+  log.textContent = 'starting...';
+  let res;
+  try {
+    res = await fetch('rerun', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: fields,
+        backend: picked('backend')[0],
+        screen_reader: picked('screen_reader')[0],
+        local_only: picked('local_only').length > 0,
+        defect: picked('defect')[0],
+        control: picked('control').length > 0
+      })
+    });
+  } catch (err) {
+    release('Cannot reach the server that published this page. Start it again ' +
+      'with: talkback-validator serve-report ' + '(a report opened from disk is read-only).');
+    return;
+  }
+  if (res.status === 409) { release('A run is already in progress on this device.'); return; }
+  if (!res.ok) { release('The server refused the run (' + res.status + ').'); return; }
+  poll();
+});
+</script></body></html>

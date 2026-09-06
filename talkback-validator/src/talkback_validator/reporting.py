@@ -203,6 +203,21 @@ audio { width: 100%; max-width: 420px; }
   color: var(--card); }
 .panel button:hover { filter: brightness(1.08); }
 .panel button[disabled] { opacity: .55; cursor: progress; filter: none; }
+.models { display: grid; gap: 2px; }
+.models .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 11px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.models .row:first-child { border-top: none; }
+.models .id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 600; min-width: 150px; }
+.models .roles { font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); }
+.models .size { color: var(--muted); font-size: 13px; }
+.models .why { flex: 1 1 100%; font-size: 13px; color: var(--muted); }
+.models .why.stop { color: var(--incon); }
+.models .act { margin-left: auto; }
+.models button { padding: 6px 14px; font-size: 13px; }
+.models button.ghost { background: none; border-color: var(--line); color: var(--muted); }
+.models .on { color: var(--pass); font-weight: 600; font-size: 13px; }
 #rerun-log:empty { display: none; }
 #rerun-log { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12px; line-height: 1.5; color: var(--muted); margin-top: 16px;
@@ -250,15 +265,94 @@ async function poll() {
   btn.disabled = false;
   btn.textContent = 'Run selected';
   if (r.exit_code === 0) { location.reload(); }
+  else { loadModels(); }
 }
+function release(message) {
+  log.textContent = message;
+  btn.disabled = false;
+  btn.textContent = 'Run selected';
+}
+async function loadModels() {
+  const host = document.getElementById('model-list');
+  let data;
+  try {
+    data = await fetch('models').then(function (x) { return x.json(); });
+  } catch (err) {
+    return;
+  }
+  const readers = document.querySelector('input[name="screen_reader"]').parentNode.parentNode;
+  host.innerHTML = '';
+  data.models.forEach(function (m) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    const roles = m.roles.length ? m.roles.join(' + ') : 'neither channel';
+    row.innerHTML = '<span class="id">' + m.id + '</span>' +
+      '<span class="roles">' + roles + '</span>' +
+      '<span class="size">' + m.size_gb.toFixed(1) + ' GB</span>';
+    const act = document.createElement('span');
+    act.className = 'act';
+    if (m.blocked) {
+      act.innerHTML = '<span class="size">unavailable</span>';
+    } else if (m.installed) {
+      act.innerHTML = '<span class="on">installed</span>';
+    } else {
+      const go = document.createElement('button');
+      go.type = 'button';
+      go.className = 'ghost';
+      go.textContent = 'Install';
+      go.addEventListener('click', function () { install(m.id, go); });
+      act.appendChild(go);
+    }
+    row.appendChild(act);
+    if (m.blocked || m.note) {
+      const why = document.createElement('span');
+      why.className = m.blocked ? 'why stop' : 'why';
+      why.textContent = m.blocked || m.note;
+      row.appendChild(why);
+    }
+    host.appendChild(row);
+    if (m.installed && m.roles.indexOf('vision') >= 0) {
+      if (!document.querySelector('input[name="screen_reader"][value="' + m.id + '"]')) {
+        const label = document.createElement('label');
+        label.innerHTML = '<input type="radio" name="screen_reader" value="' + m.id +
+          '"> ' + m.id + ' (local)';
+        readers.appendChild(label);
+      }
+    }
+  });
+}
+async function install(model, button) {
+  button.disabled = true;
+  button.textContent = 'Installing...';
+  log.textContent = 'starting download...';
+  let res;
+  try {
+    res = await fetch('install', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: model })
+    });
+  } catch (err) {
+    button.disabled = false;
+    button.textContent = 'Install';
+    release('Cannot reach the server that published this page.');
+    return;
+  }
+  if (!res.ok) {
+    button.disabled = false;
+    button.textContent = 'Install';
+    release(res.status === 409
+      ? 'Something is already running on this device. Wait for it to finish.'
+      : 'The server refused the install (' + res.status + ').');
+    return;
+  }
+  btn.disabled = true;
+  poll();
+}
+loadModels();
 btn.addEventListener('click', async function () {
   const fields = picked('field');
   if (!fields.length) { log.textContent = 'Select at least one field.'; return; }
-  function release(message) {
-    log.textContent = message;
-    btn.disabled = false;
-    btn.textContent = 'Run selected';
-  }
   btn.disabled = true;
   btn.textContent = 'Running on device...';
   log.textContent = 'starting...';
@@ -270,6 +364,8 @@ btn.addEventListener('click', async function () {
       body: JSON.stringify({
         fields: fields,
         backend: picked('backend')[0],
+        screen_reader: picked('screen_reader')[0],
+        local_only: picked('local_only').length > 0,
         defect: picked('defect')[0],
         control: picked('control').length > 0
       })
@@ -285,7 +381,7 @@ btn.addEventListener('click', async function () {
 });
 """
 
-DEFECTS = ("none", "battery_value", "swap_sides", "volume_sign", "missing_label")
+DEFECTS = ("none", "battery_value", "swap_sides", "volume_sign", "missing_label", "a11y_suite")
 
 
 def _rerun_panel(run: dict) -> str:
@@ -314,6 +410,15 @@ def _rerun_panel(run: dict) -> str:
         f"{' checked' if b == current_backend else ''}> {label}</label>"
         for b, label in (("gemini", "Gemini (cloud)"), ("whisper", "Whisper (local)"))
     )
+    reader_radios = "".join(
+        f"<label><input type='radio' name='screen_reader' value='{value}'"
+        f"{' checked' if value == 'auto' else ''}> {label}</label>"
+        for value, label in (
+            ("auto", "Auto"),
+            ("gemini", "Gemini (cloud)"),
+            ("tesseract", "Tesseract (local OCR)"),
+        )
+    )
     defect_radios = "".join(
         f"<label><input type='radio' name='defect' value='{d}'"
         f"{' checked' if d == current_defect else ''}> {_esc(d)}</label>"
@@ -325,11 +430,26 @@ def _rerun_panel(run: dict) -> str:
 near its speaker while the run is in flight.</p>
 <div class="group"><span>Fields</span>{field_boxes}</div>
 <div class="group"><span>Transcription backend</span>{backend_radios}</div>
+<div class="group"><span>Screen reader</span>{reader_radios}</div>
 <div class="group"><span>Injected defect</span>{defect_radios}</div>
 <div class="group"><label><input type="checkbox" name="control" value="1" checked>
-Include the TalkBack-disabled negative control</label></div>
+Include the TalkBack-disabled negative control</label>
+<label><input type="checkbox" name="local_only" value="1">
+Local only: block all network access for the run</label></div>
 <button id="rerun-go" type="button">Run selected</button>
 <div id="rerun-log"></div>
+</div></section>
+
+<section><h2>Models</h2>
+<div class="panel">
+<p class="hint">Nothing here is downloaded until you ask for it. A model marked local
+runs entirely on this machine; combined with <em>Local only</em> above, the run is
+executed behind a guard that blocks every non-loopback connection, so an accidental
+call to a hosted API fails instead of succeeding quietly.</p>
+<div class="models" id="model-list">
+<p class="hint">The model list loads when this report is served. Start it with
+<code>talkback-validator serve-report</code>.</p>
+</div>
 </div></section>"""
 
 

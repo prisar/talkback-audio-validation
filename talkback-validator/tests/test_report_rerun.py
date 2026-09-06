@@ -162,3 +162,13 @@ def test_log_stays_valid_json_while_the_run_writes_to_it(tmp_path):
         stop.set()
         thread.join(timeout=5)
     assert not thread.is_alive()
+
+
+def test_the_panel_offers_every_defect_the_app_implements():
+    """The app implements six modes; the dashboard offered five, so
+    a11y_suite could only be reached from the command line."""
+    from talkback_validator.reporting import DEFECTS
+
+    for mode in ("none", "battery_value", "swap_sides", "volume_sign",
+                 "missing_label", "a11y_suite"):
+        assert mode in DEFECTS

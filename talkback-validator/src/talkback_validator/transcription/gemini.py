@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import time
 from pathlib import Path
 
@@ -22,6 +23,22 @@ SCREEN_PROMPT = (
     "Return an empty response if no value is legible."
 )
 
+def explain(exc: Exception) -> str:
+    """Turns a provider error into one line a tester can act on.
+
+    A daily-quota rejection reads like a broken key unless it says otherwise:
+    the raw payload is several hundred characters of JSON, and the first thing
+    anyone does on seeing it is doubt the key that is in fact working.
+    """
+    text = str(exc)
+    if "RESOURCE_EXHAUSTED" in text or "429" in text:
+        model = re.search(r"model:\s*([\w.-]+)", text)
+        limit = re.search(r'"?quotaValue"?:?\s*"?(\d+)"?', text)
+        which = f" for {model.group(1)}" if model else ""
+        cap = f" ({limit.group(1)} requests/day on the free tier)" if limit else ""
+        return f"Gemini free-tier quota exhausted{which}{cap}; the key is valid, the allowance is spent"
+    return text
+
 
 class ModelUnavailable(RuntimeError):
     pass
@@ -37,7 +54,7 @@ class GeminiBackend:
 
     name = "gemini"
 
-    def __init__(self, model: str = "gemini-flash-latest", api_key: str | None = None):
+    def __init__(self, model: str = "gemini-flash-lite-latest", api_key: str | None = None):
         self.model = model
         self._api_key = api_key or os.environ.get("GEMINI_API_KEY")
 
@@ -109,7 +126,7 @@ class GeminiBackend:
                 model=self.model,
                 prompt_version=PROMPT_VERSION,
                 latency_s=time.time() - started,
-                error=str(exc),
+                error=explain(exc),
             )
 
 

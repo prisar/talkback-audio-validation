@@ -1,12 +1,13 @@
 {
-  "generated_at": "2026-09-06T17:11:42+00:00",
+  "generated_at": "2026-09-06T22:38:20+00:00",
   "environment": {
     "mode": "live device",
     "driver": "adb",
     "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
-    "backend": "fixture",
-    "model": "recorded",
-    "injected defect": "none"
+    "backend": "whisper-local",
+    "model": "small.en",
+    "injected defect": "none",
+    "screen reader": "tesseract"
   },
   "cases": [
     {
@@ -15,56 +16,57 @@
       "scenario": "aidsim",
       "field": "left_battery",
       "field_type": "percentage",
-      "status": "INCONCLUSIVE",
-      "reason": "SPOKEN_VALUE_ABSENT",
-      "detail": "no value could be extracted from the audio",
-      "spoken_value": null,
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": 85,
       "visual_value": 85,
-      "transcript": "",
+      "transcript": "85%",
       "channels": {
         "text_node": {
           "raw": "85%",
           "value": 85
         },
         "ocr": {
-          "raw": "",
+          "raw": "35 Y",
           "value": null
         }
       },
-      "audio_path": "runs/live-clean/left_battery.wav",
-      "screenshot": "runs/live-clean/left_battery.png",
-      "crop": "runs/live-clean/left_battery-crop.png",
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_battery.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_battery.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_battery-crop.png",
       "events": [
         {
           "event": "stream_open",
-          "at": 1788714709.006624
+          "at": 1788734311.535114
         },
         {
           "event": "pre_roll_done",
-          "at": 1788714710.2828748
+          "at": 1788734312.65913
         },
         {
           "event": "focus_action",
-          "at": 1788714710.396699
+          "at": 1788734314.095587
         },
         {
           "event": "speech_start",
-          "at": 1788714710.685652
+          "at": 1788734314.096033
         },
         {
           "event": "speech_end",
-          "at": 1788714714.383193
+          "at": 1788734316.5591528
         }
       ],
       "accessibility": {
         "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
         "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
       },
-      "backend": "fixture",
-      "model": "recorded",
-      "prompt_version": "v1",
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     },
     {
       "id": "right_battery-none",
@@ -73,55 +75,56 @@
       "field": "right_battery",
       "field_type": "percentage",
       "status": "INCONCLUSIVE",
-      "reason": "SPOKEN_VALUE_ABSENT",
-      "detail": "no value could be extracted from the audio",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 42, 'ocr': 2}",
       "spoken_value": null,
-      "visual_value": 42,
-      "transcript": "",
+      "visual_value": null,
+      "transcript": "Left right battery, 42%",
       "channels": {
         "text_node": {
           "raw": "42%",
           "value": 42
         },
         "ocr": {
-          "raw": "",
-          "value": null
+          "raw": "+2%",
+          "value": 2
         }
       },
-      "audio_path": "runs/live-clean/right_battery.wav",
-      "screenshot": "runs/live-clean/right_battery.png",
-      "crop": "runs/live-clean/right_battery-crop.png",
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery-crop.png",
       "events": [
         {
           "event": "stream_open",
-          "at": 1788714721.5256882
+          "at": 1788734331.776363
         },
         {
           "event": "pre_roll_done",
-          "at": 1788714722.794726
+          "at": 1788734332.893703
         },
         {
           "event": "focus_action",
-          "at": 1788714722.915518
+          "at": 1788734333.6885161
         },
         {
           "event": "speech_start",
-          "at": 1788714722.915744
+          "at": 1788734333.689039
         },
         {
           "event": "speech_end",
-          "at": 1788714725.5450199
+          "at": 1788734337.043744
         }
       ],
       "accessibility": {
         "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
         "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
       },
-      "backend": "fixture",
-      "model": "recorded",
-      "prompt_version": "v1",
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     },
     {
       "id": "program-none",
@@ -129,97 +132,245 @@
       "scenario": "aidsim",
       "field": "program",
       "field_type": "name_with_state",
-      "status": "INCONCLUSIVE",
-      "reason": "VISUAL_CHANNELS_DISAGREE",
-      "detail": "reference channels disagree: {'text_node': 'Noisy Environment', 'ocr': 'Tap again to turn off'}",
-      "spoken_value": null,
-      "visual_value": null,
-      "transcript": "",
+      "status": "PASS",
+      "reason": "MATCH",
+      "detail": "",
+      "spoken_value": "Noisy",
+      "visual_value": "Noisy",
+      "transcript": "program noisy selected",
       "channels": {
         "text_node": {
-          "raw": "Noisy Environment",
-          "value": "Noisy Environment"
+          "raw": "Noisy",
+          "value": "Noisy"
         },
         "ocr": {
-          "raw": "Tap again to turn off",
-          "value": "Tap again to turn off"
+          "raw": "Noisy",
+          "value": "Noisy"
         }
       },
-      "audio_path": "runs/live-clean/program.wav",
-      "screenshot": "runs/live-clean/program.png",
-      "crop": "runs/live-clean/program-crop.png",
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program-crop.png",
       "events": [
         {
           "event": "stream_open",
-          "at": 1788714732.665379
+          "at": 1788734350.207139
         },
         {
           "event": "pre_roll_done",
-          "at": 1788714733.931493
+          "at": 1788734351.327335
         },
         {
           "event": "focus_action",
-          "at": 1788714734.0625138
+          "at": 1788734352.1960802
         },
         {
           "event": "speech_start",
-          "at": 1788714734.062861
+          "at": 1788734352.196717
         },
         {
           "event": "speech_end",
-          "at": 1788714736.731261
+          "at": 1788734355.6776571
         }
       ],
       "accessibility": {
         "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
         "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
       },
-      "backend": "fixture",
-      "model": "recorded",
-      "prompt_version": "v1",
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     },
     {
       "id": "left_volume-none",
-      "title": "left_volume is not present in the accessibility tree",
+      "title": "left_volume announced by TalkBack",
       "scenario": "aidsim",
       "field": "left_volume",
       "field_type": "signed_level",
       "status": "INCONCLUSIVE",
-      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
-      "detail": "node volume_left not on screen",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no value could be extracted from the audio",
+      "spoken_value": null,
+      "visual_value": 4,
+      "transcript": "Yeah, that's cool.",
+      "channels": {
+        "text_node": {
+          "raw": "4",
+          "value": 4
+        },
+        "ocr": {
+          "raw": "l,",
+          "value": null
+        }
+      },
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788734373.906455
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788734375.030495
+        },
+        {
+          "event": "focus_action",
+          "at": 1788734375.90994
+        },
+        {
+          "event": "speech_start",
+          "at": 1788734375.91074
+        },
+        {
+          "event": "speech_end",
+          "at": 1788734379.029237
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     },
     {
       "id": "right_volume-none",
-      "title": "right_volume is not present in the accessibility tree",
+      "title": "right_volume announced by TalkBack",
       "scenario": "aidsim",
       "field": "right_volume",
       "field_type": "signed_level",
       "status": "INCONCLUSIVE",
-      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
-      "detail": "node volume_right not on screen",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': -3, 'ocr': -5}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "right volume, levels minus 3.",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-5",
+          "value": -5
+        }
+      },
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788734397.0024698
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788734398.1275468
+        },
+        {
+          "event": "focus_action",
+          "at": 1788734398.964463
+        },
+        {
+          "event": "speech_start",
+          "at": 1788734398.965046
+        },
+        {
+          "event": "speech_end",
+          "at": 1788734402.1774678
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     },
     {
       "id": "left_connection-none",
-      "title": "left_connection is not present in the accessibility tree",
+      "title": "left_connection announced by TalkBack",
       "scenario": "aidsim",
       "field": "left_connection",
       "field_type": "enum_state",
       "status": "INCONCLUSIVE",
-      "reason": "ELEMENT_NOT_IN_A11Y_TREE",
-      "detail": "node status_left_connection not on screen",
+      "reason": "VISUAL_CHANNELS_DISAGREE",
+      "detail": "reference channels disagree: {'text_node': 'connected', 'ocr': '-onnectec'}",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "8, 7, 8, left hearing 8, connected.",
+      "channels": {
+        "text_node": {
+          "raw": "Connected",
+          "value": "connected"
+        },
+        "ocr": {
+          "raw": "-onnectec",
+          "value": "-onnectec"
+        }
+      },
+      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_connection.wav",
+      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_connection.png",
+      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_connection-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788734420.0278049
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788734421.1407611
+        },
+        {
+          "event": "focus_action",
+          "at": 1788734422.325282
+        },
+        {
+          "event": "speech_start",
+          "at": 1788734422.32594
+        },
+        {
+          "event": "speech_end",
+          "at": 1788734425.4857368
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "whisper-local",
+      "model": "small.en",
+      "prompt_version": "whisper-v1",
       "driver": "adb",
-      "injected_defect": "none"
+      "injected_defect": "none",
+      "focus_method": "accessibility_focus_action"
     }
   ],
   "control": {
     "silent": false,
-    "peak_level": 0.023002460598945618,
-    "duration_s": 5.45
-  }
+    "peak_level": 0.023090407252311707,
+    "duration_s": 3.6
+  },
+  "available_fields": [
+    "left_battery",
+    "right_battery",
+    "program",
+    "left_volume",
+    "right_volume",
+    "left_connection"
+  ],
+  "defect": "none"
 }
