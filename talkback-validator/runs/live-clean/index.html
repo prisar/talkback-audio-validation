@@ -237,15 +237,15 @@ audio { width: 100%; max-width: 420px; }
   <p class="lede">Each field below was heard from the phone's speaker through the laptop
   microphone and read from the phone's screen by separate channels, then compared by
   deterministic Python. Nothing that transcribes the audio is ever shown the answer.</p>
-  <dl class="stamp"><div><dt>mode</dt><dd>live device</dd></div><div><dt>driver</dt><dd>adb</dd></div><div><dt>phone</dt><dd>CPH2447 Android 16 en-IN</dd></div><div><dt>backend</dt><dd>whisper-local</dd></div><div><dt>model</dt><dd>small.en</dd></div><div><dt>injected defect</dt><dd>none</dd></div><div><dt>screen reader</dt><dd>tesseract</dd></div>
-    <div><dt>generated</dt><dd>2026-09-06T22:38:20+00:00</dd></div>
+  <dl class="stamp"><div><dt>mode</dt><dd>live device</dd></div><div><dt>driver</dt><dd>adb</dd></div><div><dt>phone</dt><dd>CPH2447 Android 16 en-IN</dd></div><div><dt>backend</dt><dd>whisper-local</dd></div><div><dt>model</dt><dd>small.en</dd></div><div><dt>injected defect</dt><dd>none</dd></div><div><dt>screen reader</dt><dd>gemini (gemini-flash-lite-latest)</dd></div>
+    <div><dt>generated</dt><dd>2026-09-07T06:04:52+00:00</dd></div>
   </dl>
 </header>
 
 <section>
   <h2>Agreement across 6 fields</h2>
-  <div class='meter' role='img' aria-label='6 fields: 2 pass, 4 inconclusive'><div class='seg PASS' style='flex-grow:2;animation-delay:0ms'><b>2</b> pass</div><div class='seg INCONCLUSIVE' style='flex-grow:4;animation-delay:140ms'><b>4</b> inconclusive</div></div>
-  <ul class='findings'><li><span class='who mono'>right_battery</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: 42, &#x27;ocr&#x27;: 2}</span></li><li><span class='who mono'>left_volume</span><span class='what'>no value could be extracted from the audio</span></li><li><span class='who mono'>right_volume</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: -3, &#x27;ocr&#x27;: -5}</span></li><li><span class='who mono'>left_connection</span><span class='what'>reference channels disagree: {&#x27;text_node&#x27;: &#x27;connected&#x27;, &#x27;ocr&#x27;: &#x27;-onnectec&#x27;}</span></li></ul>
+  <div class='meter' role='img' aria-label='6 fields: 6 pass'><div class='seg PASS' style='flex-grow:6;animation-delay:0ms'><b>6</b> pass</div></div>
+  <p class='allclear'>Every field agreed. The spoken value and the displayed value were recovered independently and matched in all 6 observations.</p>
 </section>
 
 <section>
@@ -253,12 +253,12 @@ audio { width: 100%; max-width: 420px; }
   <div class="control">
 <span class="tag">Negative control</span>
 <div class="level" role="img"
-  aria-label="peak level 0.023 against a speech threshold of 0.02">
-  <div class="fill" style="width:23.1%;background:var(--fail)"></div>
+  aria-label="peak level 0.026 against a speech threshold of 0.02">
+  <div class="fill" style="width:26.4%;background:var(--fail)"></div>
   <div class="mark" style="left:20.0%"></div>
 </div>
 <p>With TalkBack disabled the microphone <strong>picked up sound</strong>: peak
-0.023 over 3.6s against a speech
+0.026 over 3.6s against a speech
 threshold of 0.02 (marked on the scale). Speech was detected with the screen reader off, so the run cannot be trusted to have recorded TalkBack rather than ambient noise.</p>
 </div>
 </section>
@@ -316,42 +316,42 @@ call to a hosted API fails instead of succeeding quietly.</p>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>85%</q></blockquote>
+  <blockquote class='quote'><q>on 8 sim 85 percent</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>left_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>85%</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>35 Y</td><td class='mono'></td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.124s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.56s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.561s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.024s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>left_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>on 8 sim 85 percent</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>85%</td><td class='mono'>85</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.288s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.763s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.765s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.033s</td></tr></table></div></div>
 </div></details>
 </article>
-<article class="case INCONCLUSIVE" style="animation-delay:55ms">
+<article class="case PASS" style="animation-delay:55ms">
   <div class="case-head">
     <span class='ear R' title='right side'>R</span>
     <span class="name mono">right_battery</span>
     <span class="type">percentage</span>
-    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+    <span class="badge PASS">● PASS</span>
   </div>
   <div class="confront">
     <div class="side heard">
       <span class="cap">Heard</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">42</span>
       <span class="src">whisper-local · small.en</span>
     </div>
     <div class="link">
-      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+      <span class="reason">MATCH</span>
     </div>
     <div class="side shown">
       <span class="cap">Shown</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">42</span>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>Left right battery, 42%</q></blockquote>
+  <blockquote class='quote'><q>on 8 sim drive battery 42 percent</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>right_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: 42, &#x27;ocr&#x27;: 2}</dd><dt>Transcript</dt><dd>Left right battery, 42%</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>+2%</td><td class='mono'>2</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.117s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.912s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.913s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.267s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>right_battery-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>on 8 sim drive battery 42 percent</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>42%</td><td class='mono'>42</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_battery.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_battery.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_battery-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.287s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.198s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.199s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.534s</td></tr></table></div></div>
 </div></details>
 </article>
 <article class="case PASS" style="animation-delay:110ms">
@@ -376,29 +376,29 @@ call to a hosted API fails instead of succeeding quietly.</p>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>program noisy selected</q></blockquote>
+  <blockquote class='quote'><q>Back on, 8-Sim, background, noisy, selected.</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>program-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>program noisy selected</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='program.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='program.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='program-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.12s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.989s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.99s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.471s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>program-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>Back on, 8-Sim, background, noisy, selected.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Noisy</td><td class='mono'>Noisy</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='program.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='program.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='program-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.286s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.153s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.154s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.635s</td></tr></table></div></div>
 </div></details>
 </article>
-<article class="case INCONCLUSIVE" style="animation-delay:165ms">
+<article class="case PASS" style="animation-delay:165ms">
   <div class="case-head">
     <span class='ear L' title='left side'>L</span>
     <span class="name mono">left_volume</span>
     <span class="type">signed_level</span>
-    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+    <span class="badge PASS">● PASS</span>
   </div>
   <div class="confront">
     <div class="side heard">
       <span class="cap">Heard</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">4</span>
       <span class="src">whisper-local · small.en</span>
     </div>
     <div class="link">
-      <span class="reason">SPOKEN_VALUE_ABSENT</span>
+      <span class="reason">MATCH</span>
     </div>
     <div class="side shown">
       <span class="cap">Shown</span>
@@ -406,72 +406,72 @@ call to a hosted API fails instead of succeeding quietly.</p>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>Yeah, that&#x27;s cool.</q></blockquote>
+  <blockquote class='quote'><q>On 8th symbol, left volume, level 4.</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>left_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>SPOKEN_VALUE_ABSENT</dd><dt>Detail</dt><dd>no value could be extracted from the audio</dd><dt>Transcript</dt><dd>Yeah, that&#x27;s cool.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>4</td><td class='mono'>4</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>l,</td><td class='mono'></td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.124s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.003s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.004s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.123s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>left_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>On 8th symbol, left volume, level 4.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>4</td><td class='mono'>4</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>4</td><td class='mono'>4</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.284s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.182s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.183s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.386s</td></tr></table></div></div>
 </div></details>
 </article>
-<article class="case INCONCLUSIVE" style="animation-delay:220ms">
+<article class="case PASS" style="animation-delay:220ms">
   <div class="case-head">
     <span class='ear R' title='right side'>R</span>
     <span class="name mono">right_volume</span>
     <span class="type">signed_level</span>
-    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+    <span class="badge PASS">● PASS</span>
   </div>
   <div class="confront">
     <div class="side heard">
       <span class="cap">Heard</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">-3</span>
       <span class="src">whisper-local · small.en</span>
     </div>
     <div class="link">
-      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+      <span class="reason">MATCH</span>
     </div>
     <div class="side shown">
       <span class="cap">Shown</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">-3</span>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>right volume, levels minus 3.</q></blockquote>
+  <blockquote class='quote'><q>Back on 8-squad right volume level minus 3</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>right_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: -3, &#x27;ocr&#x27;: -5}</dd><dt>Transcript</dt><dd>right volume, levels minus 3.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-5</td><td class='mono'>-5</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.125s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+1.962s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+1.963s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.175s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>right_volume-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>Back on 8-squad right volume level minus 3</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.299s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.117s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.118s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.595s</td></tr></table></div></div>
 </div></details>
 </article>
-<article class="case INCONCLUSIVE" style="animation-delay:275ms">
+<article class="case PASS" style="animation-delay:275ms">
   <div class="case-head">
     <span class='ear L' title='left side'>L</span>
     <span class="name mono">left_connection</span>
     <span class="type">enum_state</span>
-    <span class="badge INCONCLUSIVE">■ INCONCLUSIVE</span>
+    <span class="badge PASS">● PASS</span>
   </div>
   <div class="confront">
     <div class="side heard">
       <span class="cap">Heard</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">connected</span>
       <span class="src">whisper-local · small.en</span>
     </div>
     <div class="link">
-      <span class="reason">VISUAL_CHANNELS_DISAGREE</span>
+      <span class="reason">MATCH</span>
     </div>
     <div class="side shown">
       <span class="cap">Shown</span>
-      <span class="val absent">not recovered</span>
+      <span class="val">connected</span>
       <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><q>8, 7, 8, left hearing 8, connected.</q></blockquote>
+  <blockquote class='quote'><q>On, 8 7, left hearing 8, connected.</q></blockquote>
   
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>left_connection-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VISUAL_CHANNELS_DISAGREE</dd><dt>Detail</dt><dd>reference channels disagree: {&#x27;text_node&#x27;: &#x27;connected&#x27;, &#x27;ocr&#x27;: &#x27;-onnectec&#x27;}</dd><dt>Transcript</dt><dd>8, 7, 8, left hearing 8, connected.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
-<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Connected</td><td class='mono'>connected</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-onnectec</td><td class='mono'>-onnectec</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_connection.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_connection.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_connection-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.113s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.297s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.298s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.458s</td></tr></table></div></div>
+<dl class="kv"><dt>Case</dt><dd>left_connection-none</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MATCH</dd><dt>Transcript</dt><dd>On, 8 7, left hearing 8, connected.</dd><dt>Backend / model</dt><dd>whisper-local / small.en</dd><dt>Prompt version</dt><dd>whisper-v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>Connected</td><td class='mono'>connected</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>Connected</td><td class='mono'>connected</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='left_connection.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='left_connection.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='left_connection-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.282s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.166s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.167s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.329s</td></tr></table></div></div>
 </div></details>
 </article>
 </section>

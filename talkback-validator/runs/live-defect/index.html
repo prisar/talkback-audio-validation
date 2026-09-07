@@ -237,15 +237,15 @@ audio { width: 100%; max-width: 420px; }
   <p class="lede">Each field below was heard from the phone's speaker through the laptop
   microphone and read from the phone's screen by separate channels, then compared by
   deterministic Python. Nothing that transcribes the audio is ever shown the answer.</p>
-  <dl class="stamp"><div><dt>mode</dt><dd>live device</dd></div><div><dt>driver</dt><dd>adb</dd></div><div><dt>phone</dt><dd>CPH2447 Android 16 en-IN</dd></div><div><dt>backend</dt><dd>fixture</dd></div><div><dt>model</dt><dd>recorded</dd></div><div><dt>injected defect</dt><dd>volume_sign</dd></div><div><dt>screen reader</dt><dd>tesseract</dd></div>
-    <div><dt>generated</dt><dd>2026-09-06T22:36:06+00:00</dd></div>
+  <dl class="stamp"><div><dt>mode</dt><dd>live device</dd></div><div><dt>driver</dt><dd>adb</dd></div><div><dt>phone</dt><dd>CPH2447 Android 16 en-IN</dd></div><div><dt>backend</dt><dd>gemini</dd></div><div><dt>model</dt><dd>gemini-flash-lite-latest</dd></div><div><dt>injected defect</dt><dd>volume_sign</dd></div><div><dt>screen reader</dt><dd>gemini (gemini-flash-lite-latest)</dd></div>
+    <div><dt>generated</dt><dd>2026-09-07T06:03:29+00:00</dd></div>
   </dl>
 </header>
 
 <section>
   <h2>Agreement across 1 field</h2>
-  <div class='meter' role='img' aria-label='1 fields: 1 error'><div class='seg ERROR' style='flex-grow:1;animation-delay:210ms'><b>1</b> error</div></div>
-  <ul class='findings'><li><span class='who mono'>right_volume</span><span class='what'>no recorded transcript beside runs/live-defect/right_volume.wav</span></li></ul>
+  <div class='meter' role='img' aria-label='1 fields: 1 fail'><div class='seg FAIL' style='flex-grow:1;animation-delay:70ms'><b>1</b> fail</div></div>
+  <ul class='findings'><li><span class='who mono'>right_volume</span><span class='what'>displayed -3, announced 3: the sign was dropped</span></li></ul>
 </section>
 
 <section>
@@ -284,34 +284,34 @@ call to a hosted API fails instead of succeeding quietly.</p>
 <section>
   <h2>Fields</h2>
   
-<article class="case ERROR" style="animation-delay:0ms">
+<article class="case FAIL" style="animation-delay:0ms">
   <div class="case-head">
     <span class='ear R' title='right side'>R</span>
     <span class="name mono">right_volume</span>
     <span class="type">signed_level</span>
-    <span class="badge ERROR">✖ ERROR</span>
+    <span class="badge FAIL">▲ FAIL</span>
   </div>
   <div class="confront">
     <div class="side heard">
       <span class="cap">Heard</span>
-      <span class="val absent">not recovered</span>
-      <span class="src">fixture · recorded</span>
+      <span class="val">3</span>
+      <span class="src">gemini-flash-lite-latest</span>
     </div>
     <div class="link">
-      <span class="reason">MODEL_UNAVAILABLE</span>
+      <span class="reason">VOLUME_SIGN_LOST</span>
     </div>
     <div class="side shown">
       <span class="cap">Shown</span>
-      <span class="val absent">not recovered</span>
-      <span class="src">screen</span>
+      <span class="val">-3</span>
+      <span class="src">text_node + ocr</span>
     </div>
   </div>
-  <blockquote class='quote'><span class='none'>Nothing intelligible was recovered from the recording.</span></blockquote>
+  <blockquote class='quote'><q>187 right volume level 3</q></blockquote>
   <div class='warn'><strong>Injected fixture defect: <code>volume_sign</code>.</strong> A deliberate label fault in the AidSim test app, not a defect in Android, in TalkBack, or in any shipping product.</div>
   <details class="evidence"><summary>Evidence</summary>
 <div class="evidence-body">
-<dl class="kv"><dt>Case</dt><dd>right_volume-volume_sign</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>MODEL_UNAVAILABLE</dd><dt>Detail</dt><dd>no recorded transcript beside runs/live-defect/right_volume.wav</dd><dt>Backend / model</dt><dd>fixture / recorded</dd><dt>Driver</dt><dd>adb</dd></dl>
-<div><h3>Recording</h3><audio controls src='right_volume.wav'></audio></div>
+<dl class="kv"><dt>Case</dt><dd>right_volume-volume_sign</dd><dt>Scenario</dt><dd>aidsim</dd><dt>Reason</dt><dd>VOLUME_SIGN_LOST</dd><dt>Detail</dt><dd>displayed -3, announced 3: the sign was dropped</dd><dt>Transcript</dt><dd>187 right volume level 3</dd><dt>Backend / model</dt><dd>gemini / gemini-flash-lite-latest</dd><dt>Prompt version</dt><dd>v1</dd><dt>Driver</dt><dd>adb</dd><dt>Focus method</dt><dd>accessibility_focus_action</dd><dt>Accessibility before</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd><dt>Accessibility after</dt><dd>AccessibilitySettings(enabled=True, services=&#x27;com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService&#x27;)</dd></dl>
+<div><h3>Visual channels</h3><div class='scroll'><table><tr><th>Channel</th><th>Raw</th><th>Parsed</th><th>Error</th></tr><tr><td class='mono'>text_node</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr><tr><td class='mono'>ocr</td><td class='mono'>-3</td><td class='mono'>-3</td><td class='mono'></td></tr></table></div></div><div><h3>Recording</h3><audio controls src='right_volume.wav'></audio></div><div><h3>Screen</h3><div class='shots'><figure><img src='right_volume.png' alt='Full screenshot' loading='lazy'><figcaption>Full screenshot</figcaption></figure><figure><img src='right_volume-crop.png' alt='Value crop read by OCR' loading='lazy'><figcaption>Value crop read by OCR</figcaption></figure></div></div><div><h3>Timeline</h3><div class='scroll'><table><tr><th>Event</th><th>Offset</th></tr><tr><td class='mono'>stream_open</td><td class='mono'>+0.0s</td></tr><tr><td class='mono'>pre_roll_done</td><td class='mono'>+1.276s</td></tr><tr><td class='mono'>focus_action</td><td class='mono'>+2.029s</td></tr><tr><td class='mono'>speech_start</td><td class='mono'>+2.03s</td></tr><tr><td class='mono'>speech_end</td><td class='mono'>+5.174s</td></tr></table></div></div>
 </div></details>
 </article>
 </section>

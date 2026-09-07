@@ -1,29 +1,72 @@
 {
-  "generated_at": "2026-09-06T22:36:06+00:00",
+  "generated_at": "2026-09-07T06:03:29+00:00",
   "environment": {
     "mode": "live device",
     "driver": "adb",
     "device": "{\"serial\": \"adb-2acb6c28-s0PUFG._adb-tls-connect._tcp\", \"model\": \"CPH2447\", \"android_version\": \"16\", \"sdk\": \"36\", \"locale\": \"en-IN\"}",
-    "backend": "fixture",
-    "model": "recorded",
+    "backend": "gemini",
+    "model": "gemini-flash-lite-latest",
     "injected defect": "volume_sign",
-    "screen reader": "tesseract"
+    "screen reader": "gemini (gemini-flash-lite-latest)"
   },
   "cases": [
     {
       "id": "right_volume-volume_sign",
-      "title": "right_volume: transcription backend failed",
+      "title": "right_volume announced by TalkBack",
       "scenario": "aidsim",
       "field": "right_volume",
       "field_type": "signed_level",
-      "status": "ERROR",
-      "reason": "MODEL_UNAVAILABLE",
-      "detail": "no recorded transcript beside runs/live-defect/right_volume.wav",
+      "status": "FAIL",
+      "reason": "VOLUME_SIGN_LOST",
+      "detail": "displayed -3, announced 3: the sign was dropped",
+      "spoken_value": 3,
+      "visual_value": -3,
+      "transcript": "187 right volume level 3",
+      "channels": {
+        "text_node": {
+          "raw": "-3",
+          "value": -3
+        },
+        "ocr": {
+          "raw": "-3",
+          "value": -3
+        }
+      },
       "audio_path": "runs/live-defect/right_volume.wav",
-      "backend": "fixture",
-      "model": "recorded",
+      "screenshot": "runs/live-defect/right_volume.png",
+      "crop": "runs/live-defect/right_volume-crop.png",
+      "events": [
+        {
+          "event": "stream_open",
+          "at": 1788761025.568278
+        },
+        {
+          "event": "pre_roll_done",
+          "at": 1788761026.843958
+        },
+        {
+          "event": "focus_action",
+          "at": 1788761027.597343
+        },
+        {
+          "event": "speech_start",
+          "at": 1788761027.597922
+        },
+        {
+          "event": "speech_end",
+          "at": 1788761030.742146
+        }
+      ],
+      "accessibility": {
+        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
+        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
+      },
+      "backend": "gemini",
+      "model": "gemini-flash-lite-latest",
+      "prompt_version": "v1",
       "driver": "adb",
-      "injected_defect": "volume_sign"
+      "injected_defect": "volume_sign",
+      "focus_method": "accessibility_focus_action"
     }
   ],
   "control": null,

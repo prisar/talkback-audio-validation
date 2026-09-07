@@ -922,7 +922,22 @@ def _latest_run() -> Path | None:
     return runs[0] if runs else None
 
 
+def _load_dotenv() -> None:
+    path = Path(".env")
+    if not path.is_file():
+        return
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        if key and key not in os.environ:
+            os.environ[key] = value.strip().strip('"').strip("'")
+
+
 def main(argv=None) -> int:
+    _load_dotenv()
     parser = argparse.ArgumentParser(prog="talkback-validator")
     sub = parser.add_subparsers(dest="command", required=True)
 
