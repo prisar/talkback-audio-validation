@@ -21,14 +21,23 @@ screen -> screenshot OCR + accessibility text node -------------------------> sh
 
 ## Demo
 
-![Evidence card from the report dashboard, playing the recorded audio for a PASS verdict](artifacts/demo-video/evidence-pass-demo.gif)
+Report dashboard after a clean run — the Run panel, installed models, and all six fields
+agreeing:
 
-The clip above is one evidence card from the report dashboard: the field, what was heard,
-what was shown, and the recorded audio for that capture, played back in place. Full clip
-with sound: [`artifacts/demo-video/evidence-pass-demo.mov`](artifacts/demo-video/evidence-pass-demo.mov).
+![Report dashboard: Run panel, Models panel, and six PASS fields](artifacts/screenshots/dashboard.png)
 
-This shows the report, not the run itself — the "run it" commands above and the dashboard
-screenshots in section 3 cover the rest.
+Same dashboard after injecting `volume_sign` — one field disagrees, and the summary reads
+`FAIL`, not a silent pass:
+
+![Report dashboard after an injected defect: right_volume FAIL, sign dropped](artifacts/screenshots/dashboard-fail.png)
+
+Video, with sound — one evidence card expanded, playing the recorded audio for a PASS
+verdict against what the screen showed:
+
+![Evidence card, playing the recorded audio for a PASS verdict](artifacts/demo-video/evidence-pass-demo.gif)
+
+Full clip with audio: [`artifacts/demo-video/evidence-pass-demo.mov`](artifacts/demo-video/evidence-pass-demo.mov)
+(GitHub's file viewer plays it; the GIF above has no sound).
 
 ---
 
