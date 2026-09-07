@@ -19,6 +19,19 @@ screen -> screenshot OCR + accessibility text node -------------------------> sh
 
 ---
 
+## Demo
+
+![Evidence card from the report dashboard, playing the recorded audio for a PASS verdict](artifacts/demo-video/evidence-pass-demo.gif)
+
+The clip above is one evidence card from the report dashboard: the field, what was heard,
+what was shown, and the recorded audio for that capture, played back in place. Full clip
+with sound: [`artifacts/demo-video/evidence-pass-demo.mov`](artifacts/demo-video/evidence-pass-demo.mov).
+
+This shows the report, not the run itself — the "run it" commands above and the dashboard
+screenshots in section 3 cover the rest.
+
+---
+
 ## 1. Run it
 
 ```bash
