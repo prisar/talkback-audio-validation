@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 470" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive,sans-serif" role="img" aria-label="Pipeline: what TalkBack says and what the screen shows are read independently, then reconciled by one deterministic comparator into PASS, FAIL, INCONCLUSIVE, or ERROR">
+<defs>
+
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2"/>
+  </filter>
+
+<marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1e1e1e"/></marker>
+<marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1971c2"/></marker>
+<marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8590c"/></marker>
+<marker id="arrowPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6741d9"/></marker>
+<marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2f9e44"/></marker>
+<marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e03131"/></marker>
+<marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f08c00"/></marker>
+<marker id="arrowGrayD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+</defs>
+<rect x="0" y="0" width="1920" height="470" fill="#ffffff"/>
+<g filter="url(#rough)">
+<rect x="40" y="130" width="140" height="60" rx="10" ry="10" fill="none" stroke="#495057" stroke-width="2.2"/>
+<rect x="230" y="130" width="150" height="60" rx="10" ry="10" fill="none" stroke="#1971c2" stroke-width="2.2"/>
+<rect x="430" y="130" width="130" height="60" rx="10" ry="10" fill="none" stroke="#1971c2" stroke-width="2.2"/>
+<rect x="610" y="130" width="150" height="60" rx="10" ry="10" fill="none" stroke="#1971c2" stroke-width="2.2"/>
+<rect x="810" y="130" width="130" height="60" rx="10" ry="10" fill="none" stroke="#1971c2" stroke-width="2.2"/>
+<rect x="990" y="130" width="150" height="60" rx="10" ry="10" fill="none" stroke="#1971c2" stroke-width="2.2"/>
+<rect x="1190" y="130" width="150" height="60" rx="10" ry="10" fill="#a5d8ff" stroke="#1971c2" stroke-width="2.2"/>
+<path d="M 180,160.0 L 230,160.0" fill="none" stroke="#495057" stroke-width="2.2" marker-end="url(#arrowGray)"/>
+<path d="M 380,160.0 L 430,160.0" fill="none" stroke="#1971c2" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+<path d="M 560,160.0 L 610,160.0" fill="none" stroke="#1971c2" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+<path d="M 760,160.0 L 810,160.0" fill="none" stroke="#1971c2" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+<path d="M 940,160.0 L 990,160.0" fill="none" stroke="#1971c2" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+<path d="M 1140,160.0 L 1190,160.0" fill="none" stroke="#1971c2" stroke-width="2.2" marker-end="url(#arrowBlue)"/>
+<rect x="430" y="290" width="150" height="60" rx="10" ry="10" fill="none" stroke="#e8590c" stroke-width="2.2"/>
+<rect x="430" y="370" width="150" height="60" rx="10" ry="10" fill="none" stroke="#e8590c" stroke-width="2.2"/>
+<rect x="810" y="330" width="150" height="60" rx="10" ry="10" fill="#ffd8a8" stroke="#e8590c" stroke-width="2.2"/>
+<path d="M 110.0,190 Q 270.0,225.0 430,320.0" fill="none" stroke="#e8590c" stroke-width="2.2" marker-end="url(#arrowOrange)"/>
+<path d="M 110.0,190 Q 270.0,315.0 430,400.0" fill="none" stroke="#e8590c" stroke-width="2.2" marker-end="url(#arrowOrange)"/>
+<path d="M 580,320.0 L 810,360.0" fill="none" stroke="#e8590c" stroke-width="2.2" marker-end="url(#arrowOrange)"/>
+<path d="M 580,400.0 L 810,360.0" fill="none" stroke="#e8590c" stroke-width="2.2" marker-end="url(#arrowOrange)"/>
+<rect x="1420" y="240" width="220" height="100" rx="10" ry="10" fill="#d0bfff" stroke="#6741d9" stroke-width="2.2"/>
+<path d="M 1265.0,190 Q 1397.5,235.0 1530.0,240" fill="none" stroke="#6741d9" stroke-width="2.2" marker-end="url(#arrowPurple)"/>
+<path d="M 960,360.0 Q 1190.0,305.0 1420,290.0" fill="none" stroke="#6741d9" stroke-width="2.2" marker-end="url(#arrowPurple)"/>
+<rect x="1750" y="120" width="150" height="55" rx="10" ry="10" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2.2"/>
+<path d="M 1640,290.0 L 1750,147.5" fill="none" stroke="#2f9e44" stroke-width="2.2" marker-end="url(#arrowGreen)"/>
+<rect x="1750" y="210" width="150" height="55" rx="10" ry="10" fill="#ffc9c9" stroke="#e03131" stroke-width="2.2"/>
+<path d="M 1640,290.0 L 1750,237.5" fill="none" stroke="#e03131" stroke-width="2.2" marker-end="url(#arrowRed)"/>
+<rect x="1750" y="300" width="150" height="55" rx="10" ry="10" fill="#ffe8cc" stroke="#f08c00" stroke-width="2.2"/>
+<path d="M 1640,290.0 L 1750,327.5" fill="none" stroke="#f08c00" stroke-width="2.2" marker-end="url(#arrowAmber)"/>
+<rect x="1750" y="390" width="150" height="55" rx="10" ry="10" fill="#e9ecef" stroke="#495057" stroke-width="2.2"/>
+<path d="M 1640,290.0 L 1750,417.5" fill="none" stroke="#495057" stroke-width="2.2" marker-end="url(#arrowGrayD)"/>
+</g>
+<text x="40" y="30" font-size="22" font-weight="bold" fill="#1e1e1e">TalkBack audio validation — what was heard vs. what was shown</text>
+<text x="40" y="52" font-size="14" fill="#495057">two independent observations of the same moment, reconciled by one deterministic function</text>
+<text x="110.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#495057">Screen shows</text>
+<text x="110.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#495057">a value</text>
+<text x="305.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">TalkBack reads</text>
+<text x="305.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">the label</text>
+<text x="495.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">Phone</text>
+<text x="495.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">speaker</text>
+<text x="685.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">Laptop</text>
+<text x="685.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">microphone</text>
+<text x="875.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">WAV</text>
+<text x="875.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">recording</text>
+<text x="1065.0" y="155.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">Speech model</text>
+<text x="1065.0" y="175.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#1971c2">(Gemini/Whisper)</text>
+<text x="1265.0" y="155.5" font-size="15" font-weight="bold" text-anchor="middle" fill="#1971c2">Spoken</text>
+<text x="1265.0" y="175.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#1971c2">value</text>
+<rect x="175.3" y="141.0" width="59.4" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="205.0" y="152.0" font-size="12" text-anchor="middle" fill="#495057">announces</text>
+<rect x="388.5" y="141.0" width="33.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="405.0" y="152.0" font-size="12" text-anchor="middle" fill="#1971c2">plays</text>
+<rect x="535.5" y="141.0" width="99.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="585.0" y="152.0" font-size="12" text-anchor="middle" fill="#1971c2">through the air</text>
+<rect x="761.9" y="141.0" width="46.199999999999996" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="785.0" y="152.0" font-size="12" text-anchor="middle" fill="#1971c2">records</text>
+<rect x="928.7" y="141.0" width="72.6" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="965.0" y="152.0" font-size="12" text-anchor="middle" fill="#1971c2">transcribes</text>
+<rect x="1145.2" y="141.0" width="39.599999999999994" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1165.0" y="152.0" font-size="12" text-anchor="middle" fill="#1971c2">parses</text>
+<text x="505.0" y="315.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#e8590c">Screenshot</text>
+<text x="505.0" y="335.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#e8590c">OCR</text>
+<text x="505.0" y="395.5" font-size="15" font-weight="normal" text-anchor="middle" fill="#e8590c">Accessibility</text>
+<text x="505.0" y="415.0" font-size="15" font-weight="normal" text-anchor="middle" fill="#e8590c">text node</text>
+<text x="885.0" y="355.5" font-size="15" font-weight="bold" text-anchor="middle" fill="#e8590c">Shown</text>
+<text x="885.0" y="375.0" font-size="15" font-weight="bold" text-anchor="middle" fill="#e8590c">value</text>
+<rect x="147.4" y="199.6" width="66.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="180.4" y="210.6" font-size="12" text-anchor="middle" fill="#e8590c">screenshot</text>
+<rect x="150.70000000000002" y="217.2" width="59.4" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="180.4" y="228.2" font-size="12" text-anchor="middle" fill="#e8590c">a11y tree</text>
+<rect x="662.0" y="321.0" width="66.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="695.0" y="332.0" font-size="12" text-anchor="middle" fill="#e8590c">reads text</text>
+<rect x="662.0" y="361.0" width="66.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="695.0" y="372.0" font-size="12" text-anchor="middle" fill="#e8590c">reads node</text>
+<text x="1530.0" y="276.7" font-size="14" font-weight="bold" text-anchor="middle" fill="#6741d9">Python comparator</text>
+<text x="1530.0" y="294.9" font-size="14" font-weight="bold" text-anchor="middle" fill="#6741d9">(deterministic, sees</text>
+<text x="1530.0" y="313.09999999999997" font-size="14" font-weight="bold" text-anchor="middle" fill="#6741d9">both channels)</text>
+<rect x="1381.0" y="206.0" width="33.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1397.5" y="217.0" font-size="12" text-anchor="middle" fill="#6741d9">heard</text>
+<rect x="1173.5" y="296.0" width="33.0" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1190.0" y="307.0" font-size="12" text-anchor="middle" fill="#6741d9">shown</text>
+<text x="1825.0" y="152.75" font-size="15" font-weight="bold" text-anchor="middle" fill="#2f9e44">PASS</text>
+<rect x="1679.6" y="167.85" width="92.39999999999999" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1725.8" y="178.85" font-size="12" text-anchor="middle" fill="#2f9e44">channels agree</text>
+<text x="1825.0" y="242.75" font-size="15" font-weight="bold" text-anchor="middle" fill="#e03131">FAIL</text>
+<rect x="1669.7" y="238.05" width="112.19999999999999" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1725.8" y="249.05" font-size="12" text-anchor="middle" fill="#e03131">channels disagree</text>
+<text x="1825.0" y="332.75" font-size="15" font-weight="bold" text-anchor="middle" fill="#f08c00">INCONCLUSIVE</text>
+<rect x="1673.0" y="308.25" width="105.6" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1725.8" y="319.25" font-size="12" text-anchor="middle" fill="#f08c00">can't be decided</text>
+<text x="1825.0" y="422.75" font-size="15" font-weight="bold" text-anchor="middle" fill="#495057">ERROR</text>
+<rect x="1656.5" y="378.45" width="138.6" height="15" fill="#ffffff" opacity="0.9"/>
+<text x="1725.8" y="389.45" font-size="12" text-anchor="middle" fill="#495057">capture untrustworthy</text>
+</svg>

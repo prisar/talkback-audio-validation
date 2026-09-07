@@ -17,6 +17,16 @@ screen -> screenshot OCR + accessibility text node -------------------------> sh
                     Python comparator -> PASS / FAIL / INCONCLUSIVE / ERROR
 ```
 
+![Pipeline diagram: TalkBack's spoken path and the screen's visual path run independently, then a Python comparator reconciles them into PASS, FAIL, INCONCLUSIVE, or ERROR](artifacts/diagrams/pipeline-flow.svg)
+
+Editable source: [`artifacts/diagrams/pipeline-flow.excalidraw`](artifacts/diagrams/pipeline-flow.excalidraw)
+(open at [excalidraw.com](https://excalidraw.com) via Open → select the file).
+
+**Evaluating this submission?** Start with [`EVALUATOR_GUIDE.md`](EVALUATOR_GUIDE.md) instead
+of this README — it walks through real, already-executed test cases (what TalkBack said, what
+the screen showed, why the comparator ruled the way it did) rather than explaining the setup
+from scratch.
+
 ---
 
 ## Demo
@@ -143,7 +153,7 @@ both sides of each capture. A silent capture whose settings changed is reported 
 ## 5. Tests
 
 ```bash
-cd talkback-validator && uv run --with pytest pytest -q     # 138 tests
+cd talkback-validator && uv sync --quiet --extra bdd && uv run --with pytest pytest -q   # 153 tests
 ```
 
 Beyond the usual coverage, there are **regression tests written for failures that actually
@@ -163,6 +173,56 @@ asked for it:
 
 Tests that depend on host state are pinned, so results do not change based on which models a
 developer happens to have downloaded.
+
+### BDD: the comparator's contract, in Gherkin
+
+`compare()` is the one function that sees both channels and decides `PASS` / `FAIL` /
+`INCONCLUSIVE` / `ERROR`. That decision is a **contract**, not an implementation detail — it
+is the thing a test architect, a PM, or a future contributor needs to read and trust without
+opening `comparison.py`. So it is specified in
+[Gherkin](https://cucumber.io/docs/gherkin/reference/), the plain Given/When/Then language
+Behavior-Driven Development uses to make behavior legible to non-programmers, and executed
+for real by [pytest-bdd](https://pytest-bdd.readthedocs.io/) against the actual code:
+
+```gherkin
+Scenario: A negative sign is dropped in speech
+  Given the screen shows the signed level -3
+  And TalkBack announces "Right volume, level 3"
+  When the two channels are compared
+  Then the verdict is FAIL
+  And the reason is VOLUME_SIGN_LOST
+```
+
+The pieces:
+
+| File | Role |
+|---|---|
+| [`features/comparison.feature`](talkback-validator/features/comparison.feature) | The spec. 15 scenarios in Given/When/Then, one per verdict the comparator can reach. This is what an evaluator reads first — it doubles as the acceptance criteria. |
+| [`tests/step_defs/test_comparison_steps.py`](talkback-validator/tests/step_defs/test_comparison_steps.py) | The glue. Each `@given`/`@when`/`@then` maps one line of English to a call against the real `parse_*` and `compare()` functions. It builds `VisualResult` / `CaptureValidity` objects and asserts on the returned `CaseResult` — it never re-implements the verdict logic itself, so a scenario only stays green if the actual comparator produces that verdict. |
+| `scenarios("../../features/comparison.feature")` | The one line that tells pytest-bdd to compile every scenario above into a real pytest test function, discoverable and runnable exactly like the rest of the suite. |
+
+**Why BDD here and not everywhere.** `compare()` is pure, deterministic, and the whole point
+of the project — worth a spec a non-engineer can audit. The capture pipeline around it (ADB,
+the microphone, Whisper/Gemini) is infrastructure with side effects; that stays as ordinary
+pytest unit and regression tests (the table above), because Gherkin adds no clarity to
+mocking a socket.
+
+**Two different things are called "fixtures" in this repo — don't conflate them.** The `given`
+steps above use a pytest **fixture** (`context`, dependency-injected per scenario) to carry
+state between steps. That is unrelated to [`fixtures/`](talkback-validator/fixtures/) at the
+repo root, which holds *data* fixtures — committed WAV recordings and transcripts (§1's
+`--replay` mode plays these back with no phone and no microphone). One is a testing
+mechanism; the other is recorded evidence. Same word, different job.
+
+Run just the specs:
+
+```bash
+uv run --with pytest --with pytest-bdd pytest tests/step_defs -v
+```
+
+Add a new one by adding a `Scenario:` to the `.feature` file first — if a `Given`/`When`/`Then`
+line has no matching step, pytest-bdd fails with the missing pattern rather than silently
+skipping it, so an incomplete spec is never mistaken for a passing one.
 
 ---
 

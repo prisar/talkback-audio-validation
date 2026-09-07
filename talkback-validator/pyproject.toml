@@ -16,6 +16,7 @@ local = [
     "faster-whisper>=1.0",
     "onnxruntime<1.24; sys_platform == 'darwin' and platform_machine == 'x86_64'",
 ]
+bdd = ["pytest-bdd>=7.0"]
 
 [project.scripts]
 talkback-validator = "talkback_validator.cli:main"

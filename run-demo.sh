@@ -24,9 +24,9 @@ cd "$VALIDATOR"
 
 say "Installing Python dependencies"
 if [ "$MODE" = "replay" ]; then
-  uv sync --quiet
+  uv sync --quiet --extra bdd
 else
-  uv sync --quiet --extra cloud --extra capture --extra ocr --extra local
+  uv sync --quiet --extra cloud --extra capture --extra ocr --extra local --extra bdd
 fi
 
 say "Running the test suite"
