@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T06:03:29+00:00",
+  "generated_at": "2026-09-08T05:58:08+00:00",
   "environment": {
     "mode": "live device",
     "driver": "adb",
@@ -21,7 +21,7 @@
       "detail": "displayed -3, announced 3: the sign was dropped",
       "spoken_value": 3,
       "visual_value": -3,
-      "transcript": "187 right volume level 3",
+      "transcript": "Back on. 80 Bright volume, level three.",
       "channels": {
         "text_node": {
           "raw": "-3",
@@ -38,23 +38,23 @@
       "events": [
         {
           "event": "stream_open",
-          "at": 1788761025.568278
+          "at": 1788847104.084815
         },
         {
           "event": "pre_roll_done",
-          "at": 1788761026.843958
+          "at": 1788847105.235029
         },
         {
           "event": "focus_action",
-          "at": 1788761027.597343
+          "at": 1788847106.0582342
         },
         {
           "event": "speech_start",
-          "at": 1788761027.597922
+          "at": 1788847106.058649
         },
         {
           "event": "speech_end",
-          "at": 1788761030.742146
+          "at": 1788847109.237998
         }
       ],
       "accessibility": {

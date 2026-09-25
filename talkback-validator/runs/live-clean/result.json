@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T06:04:52+00:00",
+  "generated_at": "2026-09-08T06:01:18+00:00",
   "environment": {
     "mode": "live device",
     "driver": "adb",
@@ -16,12 +16,12 @@
       "scenario": "aidsim",
       "field": "left_battery",
       "field_type": "percentage",
-      "status": "PASS",
-      "reason": "MATCH",
-      "detail": "",
-      "spoken_value": 85,
+      "status": "INCONCLUSIVE",
+      "reason": "SPOKEN_VALUE_ABSENT",
+      "detail": "no number carried percentage semantics",
+      "spoken_value": null,
       "visual_value": 85,
-      "transcript": "on 8 sim 85 percent",
+      "transcript": "eV files and evaluator guide as well as the artifacts where video screenshots and",
       "channels": {
         "text_node": {
           "raw": "85%",
@@ -38,255 +38,23 @@
       "events": [
         {
           "event": "stream_open",
-          "at": 1788761104.029709
+          "at": 1788847292.287988
         },
         {
           "event": "pre_roll_done",
-          "at": 1788761105.3177862
+          "at": 1788847293.6708941
         },
         {
           "event": "focus_action",
-          "at": 1788761106.79308
+          "at": 1788847295.360199
         },
         {
           "event": "speech_start",
-          "at": 1788761106.794962
+          "at": 1788847295.3618188
         },
         {
           "event": "speech_end",
-          "at": 1788761109.062811
-        }
-      ],
-      "accessibility": {
-        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
-        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
-      },
-      "backend": "whisper-local",
-      "model": "small.en",
-      "prompt_version": "whisper-v1",
-      "driver": "adb",
-      "injected_defect": "none",
-      "focus_method": "accessibility_focus_action"
-    },
-    {
-      "id": "right_battery-none",
-      "title": "right_battery announced by TalkBack",
-      "scenario": "aidsim",
-      "field": "right_battery",
-      "field_type": "percentage",
-      "status": "PASS",
-      "reason": "MATCH",
-      "detail": "",
-      "spoken_value": 42,
-      "visual_value": 42,
-      "transcript": "on 8 sim drive battery 42 percent",
-      "channels": {
-        "text_node": {
-          "raw": "42%",
-          "value": 42
-        },
-        "ocr": {
-          "raw": "42%",
-          "value": 42
-        }
-      },
-      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery.wav",
-      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery.png",
-      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_battery-crop.png",
-      "events": [
-        {
-          "event": "stream_open",
-          "at": 1788761127.224942
-        },
-        {
-          "event": "pre_roll_done",
-          "at": 1788761128.5118148
-        },
-        {
-          "event": "focus_action",
-          "at": 1788761129.42275
-        },
-        {
-          "event": "speech_start",
-          "at": 1788761129.423967
-        },
-        {
-          "event": "speech_end",
-          "at": 1788761132.7590568
-        }
-      ],
-      "accessibility": {
-        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
-        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
-      },
-      "backend": "whisper-local",
-      "model": "small.en",
-      "prompt_version": "whisper-v1",
-      "driver": "adb",
-      "injected_defect": "none",
-      "focus_method": "accessibility_focus_action"
-    },
-    {
-      "id": "program-none",
-      "title": "program announced by TalkBack",
-      "scenario": "aidsim",
-      "field": "program",
-      "field_type": "name_with_state",
-      "status": "PASS",
-      "reason": "MATCH",
-      "detail": "",
-      "spoken_value": "Noisy",
-      "visual_value": "Noisy",
-      "transcript": "Back on, 8-Sim, background, noisy, selected.",
-      "channels": {
-        "text_node": {
-          "raw": "Noisy",
-          "value": "Noisy"
-        },
-        "ocr": {
-          "raw": "Noisy",
-          "value": "Noisy"
-        }
-      },
-      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program.wav",
-      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program.png",
-      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/program-crop.png",
-      "events": [
-        {
-          "event": "stream_open",
-          "at": 1788761147.407517
-        },
-        {
-          "event": "pre_roll_done",
-          "at": 1788761148.693253
-        },
-        {
-          "event": "focus_action",
-          "at": 1788761149.561006
-        },
-        {
-          "event": "speech_start",
-          "at": 1788761149.561413
-        },
-        {
-          "event": "speech_end",
-          "at": 1788761153.0425851
-        }
-      ],
-      "accessibility": {
-        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
-        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
-      },
-      "backend": "whisper-local",
-      "model": "small.en",
-      "prompt_version": "whisper-v1",
-      "driver": "adb",
-      "injected_defect": "none",
-      "focus_method": "accessibility_focus_action"
-    },
-    {
-      "id": "left_volume-none",
-      "title": "left_volume announced by TalkBack",
-      "scenario": "aidsim",
-      "field": "left_volume",
-      "field_type": "signed_level",
-      "status": "PASS",
-      "reason": "MATCH",
-      "detail": "",
-      "spoken_value": 4,
-      "visual_value": 4,
-      "transcript": "On 8th symbol, left volume, level 4.",
-      "channels": {
-        "text_node": {
-          "raw": "4",
-          "value": 4
-        },
-        "ocr": {
-          "raw": "4",
-          "value": 4
-        }
-      },
-      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume.wav",
-      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume.png",
-      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/left_volume-crop.png",
-      "events": [
-        {
-          "event": "stream_open",
-          "at": 1788761173.4262872
-        },
-        {
-          "event": "pre_roll_done",
-          "at": 1788761174.710182
-        },
-        {
-          "event": "focus_action",
-          "at": 1788761175.608617
-        },
-        {
-          "event": "speech_start",
-          "at": 1788761175.609421
-        },
-        {
-          "event": "speech_end",
-          "at": 1788761178.812504
-        }
-      ],
-      "accessibility": {
-        "before": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')",
-        "after": "AccessibilitySettings(enabled=True, services='com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService')"
-      },
-      "backend": "whisper-local",
-      "model": "small.en",
-      "prompt_version": "whisper-v1",
-      "driver": "adb",
-      "injected_defect": "none",
-      "focus_method": "accessibility_focus_action"
-    },
-    {
-      "id": "right_volume-none",
-      "title": "right_volume announced by TalkBack",
-      "scenario": "aidsim",
-      "field": "right_volume",
-      "field_type": "signed_level",
-      "status": "PASS",
-      "reason": "MATCH",
-      "detail": "",
-      "spoken_value": -3,
-      "visual_value": -3,
-      "transcript": "Back on 8-squad right volume level minus 3",
-      "channels": {
-        "text_node": {
-          "raw": "-3",
-          "value": -3
-        },
-        "ocr": {
-          "raw": "-3",
-          "value": -3
-        }
-      },
-      "audio_path": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume.wav",
-      "screenshot": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume.png",
-      "crop": "/Users/prisar/Downloads/fun/org25/talkback-audio-validation/talkback-validator/runs/live-clean/right_volume-crop.png",
-      "events": [
-        {
-          "event": "stream_open",
-          "at": 1788761199.5623791
-        },
-        {
-          "event": "pre_roll_done",
-          "at": 1788761200.86165
-        },
-        {
-          "event": "focus_action",
-          "at": 1788761201.67935
-        },
-        {
-          "event": "speech_start",
-          "at": 1788761201.679991
-        },
-        {
-          "event": "speech_end",
-          "at": 1788761205.1571221
+          "at": 1788847303.628918
         }
       ],
       "accessibility": {
@@ -306,12 +74,12 @@
       "scenario": "aidsim",
       "field": "left_connection",
       "field_type": "enum_state",
-      "status": "PASS",
-      "reason": "MATCH",
+      "status": "INCONCLUSIVE",
+      "reason": "AUDIO_TRUNCATED",
       "detail": "",
-      "spoken_value": "connected",
-      "visual_value": "connected",
-      "transcript": "On, 8 7, left hearing 8, connected.",
+      "spoken_value": null,
+      "visual_value": null,
+      "transcript": "pictures and features are also created in karkin format these are the features that we are you know kind of",
       "channels": {
         "text_node": {
           "raw": "Connected",
@@ -328,23 +96,23 @@
       "events": [
         {
           "event": "stream_open",
-          "at": 1788761224.715484
+          "at": 1788847372.4526238
         },
         {
           "event": "pre_roll_done",
-          "at": 1788761225.997599
+          "at": 1788847373.7428951
         },
         {
           "event": "focus_action",
-          "at": 1788761226.881676
+          "at": 1788847374.8716831
         },
         {
           "event": "speech_start",
-          "at": 1788761226.882323
+          "at": 1788847374.872513
         },
         {
-          "event": "speech_end",
-          "at": 1788761230.04477
+          "event": "timeout",
+          "at": 1788847386.894351
         }
       ],
       "accessibility": {
@@ -361,8 +129,8 @@
   ],
   "control": {
     "silent": false,
-    "peak_level": 0.02641461230814457,
-    "duration_s": 3.65
+    "peak_level": 0.09346729516983032,
+    "duration_s": 13.05
   },
   "available_fields": [
     "left_battery",
